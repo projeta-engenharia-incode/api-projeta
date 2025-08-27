@@ -43,7 +43,7 @@ public class Contrato {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pre_contrato_id")
-    private PreContratos preContrato;
+    private PreContrato preContrato;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
