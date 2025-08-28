@@ -13,9 +13,7 @@ public class Chamados {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "contrato_id", nullable = false)
-    private ContratoId contrato;
+
 
     @Column(length = 120)
     private String coordenador;
@@ -57,13 +55,7 @@ public class Chamados {
         this.id = id;
     }
 
-    public Contrato getContrato() {
-        return contrato;
-    }
 
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
 
     public String getCoordenador() {
         return coordenador;
