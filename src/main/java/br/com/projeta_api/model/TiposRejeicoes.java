@@ -22,6 +22,6 @@ public class TiposRejeicoes {
     @Column(name = "descricao",columnDefinition = "TEXT")
     private String descricao;
 
-    @OneToMany(mappedBy = "TipoRejeicoes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tiposRejeicoes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RejeicoesRevisao> rejeicoes;
 }

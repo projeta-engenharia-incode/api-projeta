@@ -31,7 +31,7 @@ public class RevisoesDoc {
     @Column(name = "observacoes", columnDefinition = "TEXT")
     private String observacoes;
 
-    @OneToMany(mappedBy = "revisoes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "revisoesDoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RejeicoesRevisao> rejeicoes;
 
 }

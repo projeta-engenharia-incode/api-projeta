@@ -20,6 +20,6 @@ public class RejeicoesRevisao {
     private TiposRejeicoes tiposRejeicoes;
 
     @ManyToOne
-    @JoinColumn(name = "revisao_id", nullable = false)
+    @JoinColumn(name = "id_revisoes", nullable = false)
     private RevisoesDoc revisoesDoc;
 }
