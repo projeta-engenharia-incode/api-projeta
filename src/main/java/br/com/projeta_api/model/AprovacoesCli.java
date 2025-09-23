@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "aprovacoes_cli")
+@Table(name = "aprovacoes_ciclo")
 public class AprovacoesCli {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

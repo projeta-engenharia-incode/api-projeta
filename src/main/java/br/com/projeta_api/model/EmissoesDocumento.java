@@ -19,7 +19,7 @@ public class EmissoesDocumento {
     private Long id;
     @Column(name = "documento_id", length = 11)
     private Integer documento_id;
-    @Column(name = "false", length = 20)
+    @Column(name = "fase", length = 20)
     private String fase;
     @Column(name = "tipo_revisao", length = 10)
     private String tipo_revisao;
