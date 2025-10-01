@@ -1,22 +1,12 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "emissoes_documento")
-public class EmissoesDocumento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class EmitirDocumentoDTO {
     @Column(name = "documento_id", length = 11)
     private Integer documento_id;
     @Column(name = "fase", length = 20)
@@ -41,5 +31,4 @@ public class EmissoesDocumento {
     private Integer ordem_emissao;
     @Column(name = "ultima_emissao")
     private Boolean ultima_emissao;
-
 }
