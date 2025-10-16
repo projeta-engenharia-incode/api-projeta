@@ -1,18 +1,18 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import br.com.projeta_api.model.RevisoesDoc;
+import br.com.projeta_api.model.TiposRejeicoes;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "rejeicoes_revisao")
-public class RejeicoesRevisao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class RejeicoesRevisaoDTO {
     @Column(name = "id")
     private Long id;
     @ManyToOne

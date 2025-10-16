@@ -1,12 +1,16 @@
 package br.com.projeta_api.DTO.request;
 
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-public class EmitirDocumentoDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmissaoDocumentoDTO {
     @Column(name = "documento_id", length = 11)
     private Integer documento_id;
     @Column(name = "fase", length = 20)
@@ -27,7 +31,7 @@ public class EmitirDocumentoDTO {
     private Double perc_revisao;
     @Column(name = "equivalente_revisado")
     private Double equivalente_revisado;
-    @Column(name = "ordm_emissao", length = 11)
+    @Column(name = "ordem_emissao", length = 11)
     private Integer ordem_emissao;
     @Column(name = "ultima_emissao")
     private Boolean ultima_emissao;

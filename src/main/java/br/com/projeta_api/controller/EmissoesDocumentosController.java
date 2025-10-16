@@ -1,6 +1,6 @@
 package br.com.projeta_api.controller;
 
-import br.com.projeta_api.DTO.request.EmitirDocumentoDTO;
+import br.com.projeta_api.DTO.request.EmissaoDocumentoDTO;
 import br.com.projeta_api.service.EmissoesDocumentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,8 @@ public class EmissoesDocumentosController {
     private EmissoesDocumentosService emissoesDocumentosService;
 
     @GetMapping
-    public ResponseEntity<EmitirDocumentoDTO> emitirDocumento(@RequestBody EmitirDocumentoDTO documentoDTO){
-         emissoesDocumentosService.emitirDocumento(documentoDTO);
+    public ResponseEntity<EmissaoDocumentoDTO> emitirDocumento(@RequestBody EmissaoDocumentoDTO documentoDTO){
+         emissoesDocumentosService.emissaoDocumento(documentoDTO);
          return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

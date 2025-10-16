@@ -1,22 +1,16 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "revisoes_doc")
-public class RevisoesDoc {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+@NoArgsConstructor
+public class RevisoesDocDTO {
     private Long id;
     @Column(name = "revisao",length = 5, nullable = false)
     private String revisao;
@@ -30,8 +24,4 @@ public class RevisoesDoc {
     private String statusRevisao;
     @Column(name = "observacoes", columnDefinition = "TEXT")
     private String observacoes;
-
-    @OneToMany(mappedBy = "revisoesDoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RejeicoesRevisao> rejeicoes;
-
 }
