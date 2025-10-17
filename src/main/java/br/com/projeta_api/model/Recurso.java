@@ -1,9 +1,15 @@
 package br.com.projeta_api.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "recursos")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Recurso {
 
     @Id
