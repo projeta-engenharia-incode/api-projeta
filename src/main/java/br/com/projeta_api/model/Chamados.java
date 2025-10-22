@@ -2,18 +2,23 @@ package br.com.projeta_api.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "chamados")
 public class Chamados {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-
+    private Long id;
 
     @Column(length = 120)
     private String coordenador;
@@ -42,90 +47,4 @@ public class Chamados {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public Chamados() {
-    }
-
-    //--------------------------Getters e Setters---------------------------
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-
-    public String getCoordenador() {
-        return coordenador;
-    }
-
-    public void setCoordenador(String coordenador) {
-        this.coordenador = coordenador;
-    }
-
-    public Boolean getAtendido() {
-        return atendido;
-    }
-
-    public void setAtendido(Boolean atendido) {
-        this.atendido = atendido;
-    }
-
-    public String getNomeProjeto() {
-        return nomeProjeto;
-    }
-
-    public void setNomeProjeto(String nomeProjeto) {
-        this.nomeProjeto = nomeProjeto;
-    }
-
-    public String getCodigoCliente() {
-        return codigoCliente;
-    }
-
-    public void setCodigoCliente(String codigoCliente) {
-        this.codigoCliente = codigoCliente;
-    }
-
-    public LocalDate getDataAbertura() {
-        return dataAbertura;
-    }
-
-    public void setDataAbertura(LocalDate dataAbertura) {
-        this.dataAbertura = dataAbertura;
-    }
-
-    public LocalDate getDataAgendamento() {
-        return dataAgendamento;
-    }
-
-    public void setDataAgendamento(LocalDate dataAgendamento) {
-        this.dataAgendamento = dataAgendamento;
-    }
-
-    public LocalDate getDataVisita() {
-        return dataVisita;
-    }
-
-    public void setDataVisita(LocalDate dataVisita) {
-        this.dataVisita = dataVisita;
-    }
-
-    public LocalDateTime getDataEstimativa() {
-        return dataEstimativa;
-    }
-
-    public void setDataEstimativa(LocalDateTime dataEstimativa) {
-        this.dataEstimativa = dataEstimativa;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

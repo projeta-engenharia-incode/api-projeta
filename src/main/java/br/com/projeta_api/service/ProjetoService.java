@@ -23,7 +23,7 @@ public class ProjetoService {
 
     public Projeto buscarProjetoPorId(Long id) {
         return projetoRepository.findById(id)
-                .orElse(() -> new ResourceNotFoundException("Projeto não encontrado com o ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o ID: " + id));
     }
 
    public Projeto atualizarProjeto(Long id, Projeto projetoAtualizado) {

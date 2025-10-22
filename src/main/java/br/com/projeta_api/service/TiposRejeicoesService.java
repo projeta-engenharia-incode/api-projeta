@@ -3,7 +3,6 @@ package br.com.projeta_api.service;
 import br.com.projeta_api.DTO.request.TiposRejeicoesDTO;
 import br.com.projeta_api.model.TiposRejeicoes;
 import br.com.projeta_api.repository.TiposRejeicoesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,12 @@ import java.util.stream.Stream;
 
 @Service
 public class TiposRejeicoesService {
-    @Autowired
-    private TiposRejeicoesRepository tiposRejeicoesRepository;
+
+    private final TiposRejeicoesRepository tiposRejeicoesRepository;
+
+    public TiposRejeicoesService(TiposRejeicoesRepository  tiposRejeicoesRepository) {
+        this.tiposRejeicoesRepository = tiposRejeicoesRepository;
+    }
 
     public TiposRejeicoesDTO tipoRejeicao(TiposRejeicoesDTO dto){
         TiposRejeicoes entity = new TiposRejeicoes();

@@ -23,7 +23,7 @@ public class EntregasCicloService {
 
     public EntregasCiclo buscarPorId(Long id){
         return entregasCicloRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Entrega do ciclo não encontrada com o ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Entrega do ciclo não encontrada com o ID: " + id));
     }
 
     public EntregasCiclo atualizarEntrega(Long id, EntregasCiclo entregaAtualizada) {

@@ -23,7 +23,7 @@ public class MedicoesDocumentosService {
 
     public MedicoesDocumentos buscarPorId(Long id){
         return medicoesDocumentosRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Boletim não encontrado com ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Boletim não encontrado com ID: " + id));
     }
 
     public MedicoesDocumentos atualizar(Long id, MedicoesDocumentos medicoesDocumentos){

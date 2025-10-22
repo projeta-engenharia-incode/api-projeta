@@ -2,6 +2,7 @@ package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.FornecedoresDTO;
 import br.com.projeta_api.model.Fornecedores;
+import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.FornecedoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,12 @@ import java.util.stream.Stream;
 
 @Service
 public class FornecedoresService {
-    @Autowired
-    private FornecedoresRepository fornecedoresRepository;
+
+    private final FornecedoresRepository fornecedoresRepository;
+
+    public FornecedoresService(FornecedoresRepository fornecedoresRepository) {
+        this.fornecedoresRepository = fornecedoresRepository;
+    }
 
     public FornecedoresDTO fornecedor(FornecedoresDTO fornecedoresDTO){
         Fornecedores entity = new Fornecedores();

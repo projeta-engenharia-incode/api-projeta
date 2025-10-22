@@ -11,8 +11,12 @@ import java.util.stream.Stream;
 
 @Service
 public class DocumentosService {
-    @Autowired
-    private DocumentosRepository documentosRepository;
+
+    private final DocumentosRepository documentosRepository;
+
+    public DocumentosService(DocumentosRepository documentosRepository){
+        this.documentosRepository = documentosRepository;
+    }
 
     public DocumentosDTO documento(DocumentosDTO documentosDTO){
         Documentos entity = new Documentos();

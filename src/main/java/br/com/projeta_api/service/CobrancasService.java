@@ -24,7 +24,7 @@ public class CobrancasService {
 
     public Cobrancas buscarCobrancaPorId(Long id){
         return cobrancasRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cobrança não encontrada com o ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Cobrança não encontrada com o ID: " + id));
     }
 
     public Cobrancas atualizarCobranca(Long id, Cobrancas cobrancas){

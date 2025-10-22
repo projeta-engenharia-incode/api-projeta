@@ -13,6 +13,7 @@ public class CicloService {
 
     final CicloRepository cicloRepository;
 
+
     public Ciclo criar(Ciclo ciclo){
         return cicloRepository.save(ciclo);
     }
@@ -23,7 +24,7 @@ public class CicloService {
 
     public Ciclo buscarPorId(Long id){
         return cicloRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ciclo não encontrado com o ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Ciclo não encontrado com o ID: " + id));
     }
 
     public Ciclo atualizar(Long id, Ciclo ciclo){

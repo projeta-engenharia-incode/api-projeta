@@ -11,8 +11,12 @@ import java.util.stream.Stream;
 
 @Service
 public class AprovacoesCicloService {
-    @Autowired
-    private AprovacoesCicloRepository aprovacoesCicloRepository;
+
+    private final AprovacoesCicloRepository aprovacoesCicloRepository;
+
+    public AprovacoesCicloService( AprovacoesCicloRepository  aprovacoesCicloRepository) {
+        this.aprovacoesCicloRepository = aprovacoesCicloRepository;
+    }
 
     public AprovacoesCicloDTO aprovacaoCiclo(AprovacoesCicloDTO aprovacoesCicloDTO){
         AprovacoesCiclo  ciclo = new AprovacoesCiclo();

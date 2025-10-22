@@ -11,8 +11,12 @@ import java.util.stream.Stream;
 
 @Service
 public class RevisoesDocService {
-    @Autowired
-    private RevisoesDocRepository revisoesDocRepository;
+
+    private final RevisoesDocRepository revisoesDocRepository;
+
+    public RevisoesDocService(RevisoesDocRepository revisoesDocRepository) {
+        this.revisoesDocRepository = revisoesDocRepository;
+    }
 
     public RevisoesDocDTO revisaoDoc(RevisoesDocDTO revisoesDocDTO){
         RevisoesDoc entity = new RevisoesDoc();

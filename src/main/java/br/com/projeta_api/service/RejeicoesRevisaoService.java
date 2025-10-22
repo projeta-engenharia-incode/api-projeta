@@ -14,6 +14,10 @@ public class RejeicoesRevisaoService {
     @Autowired
     private RejeicoesRevisaoRepository rejeicoesRevisaoRepository;
 
+    public RejeicoesRevisaoService(RejeicoesRevisaoRepository  rejeicoesRevisaoRepository) {
+        this.rejeicoesRevisaoRepository = rejeicoesRevisaoRepository;
+    }
+
     public RejeicoesRevisaoDTO rejeicaoRevisao(RejeicoesRevisaoDTO rejeicoesRevisaoDTO){
         RejeicoesRevisao entity = new RejeicoesRevisao();
         entity.setTiposRejeicoes(rejeicoesRevisaoDTO.getTiposRejeicoes());

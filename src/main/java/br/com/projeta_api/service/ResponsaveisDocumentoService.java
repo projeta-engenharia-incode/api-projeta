@@ -23,7 +23,7 @@ public class ResponsaveisDocumentoService {
 
     public ResponsaveisDocumento buscarPorId(Long id){
         return responsaveisDocumentoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Responsável por Documento não encontrado com o ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Responsável por Documento não encontrado com o ID: " + id));
     }
 
     public ResponsaveisDocumento atualizar(Long id, ResponsaveisDocumento responsaveisDocumento){
