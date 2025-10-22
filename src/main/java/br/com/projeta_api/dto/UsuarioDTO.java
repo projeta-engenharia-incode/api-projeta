@@ -1,15 +1,16 @@
-package br.com.projeta_api.DTO.request;
+package br.com.projeta_api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class FornecedoresDTO {
+@AllArgsConstructor
+public class UsuarioDTO {
+
     private Long id;
-    private Integer contrato_id;
     private String nome;
-    private String tipo;
+    private String email;
+    private String cargo;
 }

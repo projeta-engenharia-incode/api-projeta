@@ -1,46 +1,85 @@
 package br.com.projeta_api.service;
 
+import br.com.projeta_api.dto.CicloDTO;
 import br.com.projeta_api.model.Ciclo;
 import br.com.projeta_api.repository.CicloRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CicloService {
 
-    final CicloRepository cicloRepository;
+    private final CicloRepository cicloRepository;
 
-
-    public Ciclo criar(Ciclo ciclo){
-        return cicloRepository.save(ciclo);
+    public CicloService(CicloRepository cicloRepository) {
+        this.cicloRepository = cicloRepository;
     }
 
-    public List<Ciclo> listar(){
-        return cicloRepository.findAll();
+    public CicloDTO criar(CicloDTO dto) {
+        try {
+            Ciclo entity = new Ciclo();
+            entity.setNome(dto.getNome());
+            entity.setCreatedAt(dto.getCreatedAt());
+            entity.setUpdatedAt(dto.getUpdatedAt() != null ? dto.getUpdatedAt() : LocalDateTime.now());
+
+            Ciclo saved = cicloRepository.save(entity);
+            dto.setId(saved.getId());
+            return dto;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao criar ciclo.", e);
+        }
     }
 
-    public Ciclo buscarPorId(Long id){
-        return cicloRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ciclo não encontrado com o ID: " + id));
+    public List<CicloDTO> listar() {
+        List<Ciclo> entities = cicloRepository.findAll();
+        if (entities.isEmpty()) {
+            throw new RuntimeException("Nenhum ciclo encontrado.");
+        }
+        return entities.stream()
+                .map(ciclo -> new CicloDTO(
+                        ciclo.getId(),
+                        ciclo.getNome(),
+                        ciclo.getCreatedAt(),
+                        ciclo.getUpdatedAt()
+                ))
+                .toList();
     }
 
-    public Ciclo atualizar(Long id, Ciclo ciclo){
-        Ciclo cicloExisente = buscarPorId(id);
-        cicloExisente.setNome(ciclo.getNome());
-        cicloExisente.setUpdatedAt(ciclo.getUpdatedAt());
+    public CicloDTO buscarPorId(Long id) {
+        Ciclo entity = cicloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ciclo não encontrado com ID: " + id));
 
-        return cicloRepository.save(cicloExisente);
+        return new CicloDTO(
+                entity.getId(),
+                entity.getNome(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt()
+        );
     }
 
-    public void deletar(Long id){
-        Ciclo ciclo = buscarPorId(id);
-        cicloRepository.deleteById(ciclo.getId());
+    public CicloDTO atualizar(Long id, CicloDTO dto) {
+        Ciclo entity = cicloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ciclo não encontrado com ID: " + id));
+
+        entity.setNome(dto.getNome());
+        entity.setUpdatedAt(dto.getUpdatedAt() != null ? dto.getUpdatedAt() : LocalDateTime.now());
+
+        Ciclo updated = cicloRepository.save(entity);
+        dto.setId(updated.getId());
+        return dto;
     }
 
-    public boolean existePorId(Long id){
+    public void deletar(Long id) {
+        if (!cicloRepository.existsById(id)) {
+            throw new RuntimeException("Ciclo não encontrado com ID: " + id);
+        }
+        cicloRepository.deleteById(id);
+    }
+
+    public boolean existePorId(Long id) {
         return cicloRepository.existsById(id);
     }
 }

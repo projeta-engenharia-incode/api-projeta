@@ -20,10 +20,10 @@ public class Chamados {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 120)
+    @Column(name = "coordenador", length = 120)
     private String coordenador;
 
-    @Column(nullable = false)
+    @Column(name = "atendido", nullable = false)
     private Boolean atendido;
 
     @Column(name = "nome_projeto", nullable = false)

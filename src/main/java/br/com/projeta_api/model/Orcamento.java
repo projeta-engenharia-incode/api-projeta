@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -66,14 +67,14 @@ public class Orcamento {
     private String numeroLd;
 
     @Column(name = "valor_orcado", precision = 14, scale = 2)
-    private Double valorOrcado;
+    private BigDecimal valorOrcado;
 
     @Column(name = "valor_aprovado", precision = 14, scale = 2)
-    private Double valorAprovado;
+    private BigDecimal valorAprovado;
 
     @Column(name = "valor_previsto", precision = 14, scale = 2)
-    private Double valorPrevisto;
+    private BigDecimal valorPrevisto;
 
     @Column(name = "percentual_execucao", precision = 5, scale = 2)
-    private Double percentualExecucao;
+    private BigDecimal percentualExecucao;
 }

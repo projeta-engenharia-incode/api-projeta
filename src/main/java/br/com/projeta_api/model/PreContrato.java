@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "pre_contratos")
+
 public class PreContrato {
 
     @Id

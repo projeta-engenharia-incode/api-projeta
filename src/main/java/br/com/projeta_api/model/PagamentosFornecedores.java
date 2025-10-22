@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,9 +23,9 @@ public class PagamentosFornecedores {
     @Column(name = "documento_id", length = 20)
     private Integer documentoId;
     @Column(name = "percentual_pago", precision = 5, scale = 2)
-    private Double percentualPago;
+    private BigDecimal percentualPago;
     @Column(name = "valor_pago", precision = 14, scale = 2)
-    private Double valorPago;
+    private BigDecimal valorPago;
     @Column(name = "data_pagamento")
     private LocalDateTime dataPagamento;
 }
