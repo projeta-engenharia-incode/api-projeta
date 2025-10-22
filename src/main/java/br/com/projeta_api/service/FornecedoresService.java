@@ -1,7 +1,9 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.FornecedoresDTO;
+import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.model.Fornecedores;
+import br.com.projeta_api.repository.ContratoRepository;
 import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.FornecedoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +17,18 @@ public class FornecedoresService {
 
     private final FornecedoresRepository fornecedoresRepository;
 
-    public FornecedoresService(FornecedoresRepository fornecedoresRepository) {
+    private final ContratoRepository  contratoRepository;
+
+    public FornecedoresService(FornecedoresRepository fornecedoresRepository,  ContratoRepository contratoRepository) {
         this.fornecedoresRepository = fornecedoresRepository;
+        this.contratoRepository = contratoRepository;
     }
 
     public FornecedoresDTO criarFornecedor(FornecedoresDTO fornecedoresDTO) {
         try {
             Fornecedores entity = new Fornecedores();
-            entity.setContrato_id(fornecedoresDTO.getContrato_id());
+            Contrato contrato = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            entity.setContrato(contrato);
             entity.setNome(fornecedoresDTO.getNome());
             entity.setTipo(fornecedoresDTO.getTipo());
             fornecedoresRepository.save(entity);
@@ -39,7 +45,7 @@ public class FornecedoresService {
         }
         return entity.stream().map(fornecedores -> new FornecedoresDTO(
                 fornecedores.getId(),
-                fornecedores.getContrato_id(),
+                fornecedores.getContrato().getId(),
                 fornecedores.getNome(),
                 fornecedores.getTipo()
         ));
@@ -50,7 +56,7 @@ public class FornecedoresService {
                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com o ID: " + id));
         return new FornecedoresDTO(
                 entity.getId(),
-                entity.getContrato_id(),
+                entity.getContrato().getId(),
                 entity.getNome(),
                 entity.getTipo()
         );
@@ -60,7 +66,9 @@ public class FornecedoresService {
         try {
             Fornecedores entity = fornecedoresRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com o ID: " + id));
-            entity.setContrato_id(fornecedoresDTO.getContrato_id());
+
+            Contrato contratoUp = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            entity.setContrato(contratoUp);
             entity.setNome(fornecedoresDTO.getNome());
             entity.setTipo(fornecedoresDTO.getTipo());
             fornecedoresRepository.save(entity);

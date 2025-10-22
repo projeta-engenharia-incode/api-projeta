@@ -1,7 +1,10 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.EmissaoDocumentoDTO;
+import br.com.projeta_api.model.Documentos;
 import br.com.projeta_api.model.EmissoesDocumento;
+import br.com.projeta_api.repository.CicloRepository;
+import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.EmissoesDocumentoRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,39 +14,46 @@ import java.util.List;
 public class EmissoesDocumentosService {
 
     private final EmissoesDocumentoRepository emissoesDocumentoRepository;
+    private final DocumentosRepository documentosRepository;
 
-    public EmissoesDocumentosService(EmissoesDocumentoRepository emissoesDocumentoRepository) {
+    public EmissoesDocumentosService(EmissoesDocumentoRepository emissoesDocumentoRepository,
+                                     DocumentosRepository documentosRepository) {
         this.emissoesDocumentoRepository = emissoesDocumentoRepository;
+        this.documentosRepository = documentosRepository;
     }
 
-    public EmissaoDocumentoDTO criarEmissaoDocumento(EmissaoDocumentoDTO dto) {
+    // Criar emissão de documento
+    public EmissaoDocumentoDTO saveEmissaoDocumento(EmissaoDocumentoDTO dto) {
         try {
             EmissoesDocumento entity = new EmissoesDocumento();
-            entity.setDocumento_id(dto.getDocumento_id());
+
+            Documentos documentos = documentosRepository.findById(entity.getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+
+            entity.setDocumentos(documentos);
             entity.setFase(dto.getFase());
-            entity.setTipo_revisao(dto.getTipo_revisao());
-            entity.setTipo_emissao(dto.getTipo_emissao());
-            entity.setData_emissao(dto.getData_emissao());
-            entity.setData_entrega(dto.getData_entrega());
-            entity.setStatus_retorno(dto.getStatus_retorno());
-            entity.setData_retorno(dto.getData_retorno());
-            entity.setPerc_revisao(dto.getPerc_revisao());
-            entity.setEquivalente_revisado(dto.getEquivalente_revisado());
-            entity.setOrdem_emissao(dto.getOrdem_emissao());
-            entity.setUltima_emissao(dto.getUltima_emissao());
+            entity.setTipo_revisao(dto.getTipoRevisao());
+            entity.setTipo_emissao(dto.getTipoEmissao());
+            entity.setData_emissao(dto.getDataEmissao());
+            entity.setData_entrega(dto.getDataEntrega());
+            entity.setStatus_retorno(dto.getStatusRetorno());
+            entity.setData_retorno(dto.getDataRetorno());
+            entity.setPerc_revisao(dto.getPercRevisao());
+            entity.setEquivalente_revisado(dto.getEquivalenteRevisado());
+            entity.setOrdem_emissao(dto.getOrdemEmissao());
+            entity.setUltima_emissao(dto.getUltimaEmissao());
 
             EmissoesDocumento saved = emissoesDocumentoRepository.save(entity);
-            dto.setDocumento_id(saved.getDocumento_id());
+            dto.setId(saved.getId());
             return dto;
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar emissão de documento.", e);
+            throw new RuntimeException("Erro ao salvar emissão de documento.", e);
         }
     }
 
+    // Listar todas as emissões de documento
     public List<EmissaoDocumentoDTO> listarEmissoesDocumentos() {
         List<EmissoesDocumento> entities = emissoesDocumentoRepository.findAll();
-
         if (entities.isEmpty()) {
             throw new RuntimeException("Nenhuma emissão de documento encontrada.");
         }
@@ -51,7 +61,7 @@ public class EmissoesDocumentosService {
         return entities.stream()
                 .map(doc -> new EmissaoDocumentoDTO(
                         doc.getId(),
-                        doc.getDocumento_id(),
+                        doc.getDocumentos() != null ? doc.getDocumentos().getId() : null,
                         doc.getFase(),
                         doc.getTipo_revisao(),
                         doc.getTipo_emissao(),
@@ -67,13 +77,14 @@ public class EmissoesDocumentosService {
                 .toList();
     }
 
-    public EmissaoDocumentoDTO emissaoDocumentoPorId(Long documento_id) {
-        EmissoesDocumento entity = emissoesDocumentoRepository.findById(documento_id)
-                .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com o ID: " + documento_id));
+    // Buscar por ID
+    public EmissaoDocumentoDTO getEmissaoDocumentoById(Long id) {
+        EmissoesDocumento entity = emissoesDocumentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com ID: " + id));
 
         return new EmissaoDocumentoDTO(
                 entity.getId(),
-                entity.getDocumento_id(),
+                entity.getDocumentos() != null ? entity.getDocumentos().getId() : null,
                 entity.getFase(),
                 entity.getTipo_revisao(),
                 entity.getTipo_emissao(),
@@ -88,36 +99,39 @@ public class EmissoesDocumentosService {
         );
     }
 
-    public EmissaoDocumentoDTO atualizarEmissaoDocumento(Long documento_id, EmissaoDocumentoDTO dto) {
-        try {
-            EmissoesDocumento entity = emissoesDocumentoRepository.findById(documento_id)
-                    .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com o ID: " + documento_id));
+    // Atualizar emissão de documento
+    public EmissaoDocumentoDTO updateEmissaoDocumento(Long id, EmissaoDocumentoDTO dto) {
+        EmissoesDocumento entity = emissoesDocumentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com ID: " + id));
 
-            entity.setFase(dto.getFase());
-            entity.setTipo_revisao(dto.getTipo_revisao());
-            entity.setTipo_emissao(dto.getTipo_emissao());
-            entity.setData_emissao(dto.getData_emissao());
-            entity.setData_entrega(dto.getData_entrega());
-            entity.setStatus_retorno(dto.getStatus_retorno());
-            entity.setData_retorno(dto.getData_retorno());
-            entity.setPerc_revisao(dto.getPerc_revisao());
-            entity.setEquivalente_revisado(dto.getEquivalente_revisado());
-            entity.setOrdem_emissao(dto.getOrdem_emissao());
-            entity.setUltima_emissao(dto.getUltima_emissao());
-
-            EmissoesDocumento updated = emissoesDocumentoRepository.save(entity);
-            dto.setDocumento_id(updated.getDocumento_id());
-            return dto;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao atualizar emissão de documento.", e);
+        if (dto.getDocumentoId() != null) {
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId())
+                    .orElseThrow(() -> new RuntimeException("Documento não encontrado com ID: " + dto.getDocumentoId()));
+            entity.setDocumentos(doc);
         }
+
+        entity.setFase(dto.getFase());
+        entity.setTipo_revisao(dto.getTipoRevisao());
+        entity.setTipo_emissao(dto.getTipoEmissao());
+        entity.setData_emissao(dto.getDataEmissao());
+        entity.setData_entrega(dto.getDataEntrega());
+        entity.setStatus_retorno(dto.getStatusRetorno());
+        entity.setData_retorno(dto.getDataRetorno());
+        entity.setPerc_revisao(dto.getPercRevisao());
+        entity.setEquivalente_revisado(dto.getEquivalenteRevisado());
+        entity.setOrdem_emissao(dto.getOrdemEmissao());
+        entity.setUltima_emissao(dto.getUltimaEmissao());
+
+        EmissoesDocumento updated = emissoesDocumentoRepository.save(entity);
+        dto.setId(updated.getId());
+        return dto;
     }
 
-    public void deletarEmissaoDocumento(Long documento_id) {
-        if (!emissoesDocumentoRepository.existsById(documento_id)) {
-            throw new RuntimeException("Emissão de documento não encontrada com o ID: " + documento_id);
+    // Deletar emissão de documento
+    public void deleteEmissaoDocumento(Long id) {
+        if (!emissoesDocumentoRepository.existsById(id)) {
+            throw new RuntimeException("Emissão de documento não encontrada com ID: " + id);
         }
-        emissoesDocumentoRepository.deleteById(documento_id);
+        emissoesDocumentoRepository.deleteById(id);
     }
 }

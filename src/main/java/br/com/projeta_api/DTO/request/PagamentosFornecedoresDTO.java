@@ -8,24 +8,18 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PagamentosFornecedoresDTO {
-    @Column(name = "id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedores fornecedorId;
-    @ManyToOne
-    @JoinColumn(name = "documento_id", nullable = false)
-    private Documentos documentoId;
-    @Column(name = "percentual_pago", precision = 5, scale = 2)
-    private Double percentualPago;
-    @Column(name = "valor_pago", precision = 14, scale = 2)
-    private Double valorPago;
-    @Column(name = "data_pagamento")
+    private Long fornecedorId;   // apenas o ID do fornecedor
+    private Long documentoId;    // apenas o ID do documento
+    private BigDecimal percentualPago;
+    private BigDecimal valorPago;
     private LocalDateTime dataPagamento;
 }

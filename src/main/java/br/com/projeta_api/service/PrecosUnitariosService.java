@@ -1,7 +1,9 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.PrecosUnitariosDTO;
+import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.model.PrecosUnitarios;
+import br.com.projeta_api.repository.ContratoRepository;
 import br.com.projeta_api.repository.PrecosUnitariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,50 +13,91 @@ import java.util.stream.Stream;
 
 @Service
 public class PrecosUnitariosService {
-    @Autowired
-    private PrecosUnitariosRepository precosUnitariosRepository;
+    private final PrecosUnitariosRepository precosUnitariosRepository;
 
-    public PrecosUnitariosDTO precoUnitario(PrecosUnitariosDTO dto){
-        PrecosUnitarios entity = new PrecosUnitarios();
-        entity.setContratoId(dto.getContratoId());
-        entity.setContrato(dto.getContrato());
-        entity.setDescricao(dto.getDescricao());
-        entity.setFormato(dto.getFormato());
-        entity.setQuantidade(dto.getQuantidade());
-        entity.setPrecoUnitario(dto.getPrecoUnitario());
-        precosUnitariosRepository.save(entity);
-        return dto;
+    private final ContratoRepository contratoRepository;
+
+    public PrecosUnitariosService(PrecosUnitariosRepository precosUnitariosRepository, ContratoRepository contratoRepository) {
+        this.precosUnitariosRepository = precosUnitariosRepository;
+        this.contratoRepository = contratoRepository;
     }
-    public Stream<PrecosUnitariosDTO> listarPrecosUnitarios(){
-        List<PrecosUnitarios> entity  = precosUnitariosRepository.findAll();
-        return entity.stream().map(
-                precosUnitarios -> new PrecosUnitariosDTO(
-                        precosUnitarios.getId(), precosUnitarios.getContratoId(), precosUnitarios.getContrato(), precosUnitarios.getDescricao(),
-                        precosUnitarios.getFormato(), precosUnitarios.getQuantidade(), precosUnitarios.getPrecoUnitario()
-                ));
+
+    // Salvar preço unitário
+    public PrecosUnitariosDTO savePrecoUnitario(PrecosUnitariosDTO dto) {
+        try {
+            PrecosUnitarios entity = new PrecosUnitarios();
+            Contrato contrato = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            entity.setContrato(contrato);
+            entity.setDescricao(dto.getDescricao());
+            entity.setFormato(dto.getFormato());
+            entity.setQuantidade(dto.getQuantidade());
+            entity.setPrecoUnitario(dto.getPrecoUnitario());
+
+            PrecosUnitarios saved = precosUnitariosRepository.save(entity);
+            dto.setId(saved.getId());
+            return dto;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar preço unitário.", e);
+        }
     }
-    public PrecosUnitariosDTO precosUnitariosPorId(Long id){
-        PrecosUnitarios entity = precosUnitariosRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    // Listar todos os preços unitários
+    public List<PrecosUnitariosDTO> listarPrecosUnitarios() {
+        List<PrecosUnitarios> entities = precosUnitariosRepository.findAll();
+        if (entities.isEmpty()) {
+            throw new RuntimeException("Nenhum preço unitário encontrado.");
+        }
+
+        return entities.stream()
+                .map(p -> new PrecosUnitariosDTO(
+                        p.getId(),
+                        p.getContrato().getId(),
+                        p.getDescricao(),
+                        p.getFormato(),
+                        p.getQuantidade(),
+                        p.getPrecoUnitario()
+                ))
+                .toList();
+    }
+
+    // Buscar preço unitário por ID
+    public PrecosUnitariosDTO getPrecoUnitarioById(Long id) {
+        PrecosUnitarios entity = precosUnitariosRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Preço unitário não encontrado com ID: " + id));
+
         return new PrecosUnitariosDTO(
-                entity.getId(), entity.getContratoId(), entity.getContrato(), entity.getDescricao(),
-                entity.getFormato(), entity.getQuantidade(), entity.getPrecoUnitario()
+                entity.getId(),
+                entity.getContrato().getId(),
+                entity.getDescricao(),
+                entity.getFormato(),
+                entity.getQuantidade(),
+                entity.getPrecoUnitario()
         );
     }
-    public void atualizarPrecoUnitario(Long id , PrecosUnitariosDTO dto){
-        PrecosUnitarios entity = precosUnitariosRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
-        entity.setContratoId(dto.getContratoId());
-        entity.setContrato(dto.getContrato());
+
+    // Atualizar preço unitário
+    public PrecosUnitariosDTO updatePrecoUnitario(Long id, PrecosUnitariosDTO dto) {
+        PrecosUnitarios entity = precosUnitariosRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Preço unitário não encontrado com ID: " + id));
+
+        Contrato contratoUp = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+
+        entity.setContrato(contratoUp);
         entity.setDescricao(dto.getDescricao());
         entity.setFormato(dto.getFormato());
         entity.setQuantidade(dto.getQuantidade());
         entity.setPrecoUnitario(dto.getPrecoUnitario());
-        precosUnitariosRepository.save(entity);
+
+        PrecosUnitarios updated = precosUnitariosRepository.save(entity);
+        dto.setId(updated.getId());
+        return dto;
     }
-    public void deletarPrecoUnitario(Long id){
-        precosUnitariosRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    // Deletar preço unitário
+    public void deletePrecoUnitario(Long id) {
+        if (!precosUnitariosRepository.existsById(id)) {
+            throw new RuntimeException("Preço unitário não encontrado com ID: " + id);
+        }
         precosUnitariosRepository.deleteById(id);
     }
 }

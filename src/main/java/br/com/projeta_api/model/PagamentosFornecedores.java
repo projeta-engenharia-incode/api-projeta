@@ -20,10 +20,10 @@ public class PagamentosFornecedores {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedores fornecedorId;
+    private Fornecedores fornecedores;
     @ManyToOne
     @JoinColumn(name = "documento_id", nullable = false)
-    private Documentos documentoId;
+    private Documentos documentos;
     @Column(name = "percentual_pago", precision = 5, scale = 2)
     private BigDecimal percentualPago;
     @Column(name = "valor_pago", precision = 14, scale = 2)

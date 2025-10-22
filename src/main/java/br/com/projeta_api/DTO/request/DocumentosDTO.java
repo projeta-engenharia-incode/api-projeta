@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class DocumentosDTO {
     private Long id;
-    private Integer projetoId;
-    private Integer cicloId;
+    private Long projetoId;
+    private Long cicloId;
     private String codigoDoc;
     private String tituloSecundario;
     private String tipo;

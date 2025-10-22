@@ -15,16 +15,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsoRecursosDTO {
-    @Column(name = "id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "recurso_id", nullable = false)
-    private Recurso recursoId;
-    @ManyToOne
-    @JoinColumn(name = "documento_id", nullable = false)
-    private Documentos documentoId;
-    @Column(name = "quantidade_usada", length = 11)
+    private Long recursoId;     // id do recurso
+    private Long documentoId;   // id do documento
     private Integer quantidadeUsada;
-    @Column(name = "data_uso")
     private LocalDateTime dataUso;
 }

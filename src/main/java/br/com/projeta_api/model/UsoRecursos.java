@@ -19,7 +19,7 @@ public class UsoRecursos {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "recurso_id", nullable = false)
-    private Recurso recursoId;
+    private Recurso recurso;
     @ManyToOne
     @JoinColumn(name = "documento_id", nullable = false)
     private Documentos documentos;

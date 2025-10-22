@@ -1,8 +1,13 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.DocumentosDTO;
+import br.com.projeta_api.model.Ciclo;
 import br.com.projeta_api.model.Documentos;
+import br.com.projeta_api.model.Projeto;
+import br.com.projeta_api.repository.CicloRepository;
 import br.com.projeta_api.repository.DocumentosRepository;
+import br.com.projeta_api.repository.PreContratoRepository;
+import br.com.projeta_api.repository.ProjetoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +19,23 @@ public class DocumentosService {
 
     private final DocumentosRepository documentosRepository;
 
-    public DocumentosService(DocumentosRepository documentosRepository) {
+    private final ProjetoRepository projetoRepository;
+
+    private final CicloRepository cicloRepository;
+
+    public DocumentosService(DocumentosRepository documentosRepository,  ProjetoRepository projetoRepository,  CicloRepository cicloRepository) {
         this.documentosRepository = documentosRepository;
+        this.projetoRepository = projetoRepository;
+        this.cicloRepository = cicloRepository;
     }
 
     public DocumentosDTO criarDocumento(DocumentosDTO dto) {
         try {
             Documentos entity = new Documentos();
-            entity.setProjetoId(dto.getProjetoId());
-            entity.setCicloId(dto.getCicloId());
+            Projeto projeto = projetoRepository.findById(dto.getProjetoId()).orElseThrow(()-> new RuntimeException("ERRO"));
+            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(()-> new RuntimeException("ERRO"));
+            entity.setProjetoId(projeto);
+            entity.setCicloId(ciclo);
             entity.setCodigoDoc(dto.getCodigoDoc());
             entity.setTituloSecundario(dto.getTituloSecundario());
             entity.setTipo(dto.getTipo());
@@ -70,8 +83,8 @@ public class DocumentosService {
         return entities.stream()
                 .map(doc -> new DocumentosDTO(
                         doc.getId(),
-                        doc.getProjetoId(),
-                        doc.getCicloId(),
+                        doc.getProjetoId().getId(),
+                        doc.getCicloId().getId(),
                         doc.getCodigoDoc(),
                         doc.getTituloSecundario(),
                         doc.getTipo(),
@@ -109,8 +122,8 @@ public class DocumentosService {
 
         return new DocumentosDTO(
                 entity.getId(),
-                entity.getProjetoId(),
-                entity.getCicloId(),
+                entity.getProjetoId().getId(),
+                entity.getCicloId().getId(),
                 entity.getCodigoDoc(),
                 entity.getTituloSecundario(),
                 entity.getTipo(),
@@ -146,8 +159,11 @@ public class DocumentosService {
             Documentos entity = documentosRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Documento não encontrado com o ID: " + id));
 
-            entity.setProjetoId(dto.getProjetoId());
-            entity.setCicloId(dto.getCicloId());
+            Projeto projetoUp = projetoRepository.findById(dto.getProjetoId()).orElseThrow(()-> new RuntimeException("ERRO"));
+            Ciclo cicloUp = cicloRepository.findById(dto.getCicloId()).orElseThrow(()-> new RuntimeException("ERRO"));
+
+            entity.setProjetoId(projetoUp);
+            entity.setCicloId(cicloUp);
             entity.setCodigoDoc(dto.getCodigoDoc());
             entity.setTituloSecundario(dto.getTituloSecundario());
             entity.setTipo(dto.getTipo());

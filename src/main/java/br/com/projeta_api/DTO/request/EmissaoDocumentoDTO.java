@@ -11,16 +11,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class EmissaoDocumentoDTO {
     private Long id;
-    private Integer documento_id;
+    private Long documentoId;
     private String fase;
-    private String tipo_revisao;
-    private String tipo_emissao;
-    private LocalDateTime data_emissao;
-    private LocalDateTime data_entrega;
-    private String status_retorno;
-    private LocalDateTime data_retorno;
-    private Double perc_revisao;
-    private Double equivalente_revisado;
-    private Integer ordem_emissao;
-    private Boolean ultima_emissao;
+    private String tipoRevisao;
+    private String tipoEmissao;
+    private LocalDateTime dataEmissao;
+    private LocalDateTime dataEntrega;
+    private String statusRetorno;
+    private LocalDateTime dataRetorno;
+    private Double percRevisao;
+    private Double equivalenteRevisado;
+    private Integer ordemEmissao;
+    private Boolean ultimaEmissao;
 }

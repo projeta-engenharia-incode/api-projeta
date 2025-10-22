@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FornecedoresDTO {
+
     private Long id;
-    private Integer contrato_id;
+    private Long contratId;
     private String nome;
     private String tipo;
 }
