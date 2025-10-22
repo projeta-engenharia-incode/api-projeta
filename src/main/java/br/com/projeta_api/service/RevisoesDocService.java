@@ -3,58 +3,90 @@ package br.com.projeta_api.service;
 import br.com.projeta_api.DTO.request.RevisoesDocDTO;
 import br.com.projeta_api.model.RevisoesDoc;
 import br.com.projeta_api.repository.RevisoesDocRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class RevisoesDocService {
-    @Autowired
-    private RevisoesDocRepository revisoesDocRepository;
 
-    public RevisoesDocDTO revisaoDoc(RevisoesDocDTO revisoesDocDTO){
-        RevisoesDoc entity = new RevisoesDoc();
-        entity.setRevisao(revisoesDocDTO.getRevisao());
-        entity.setResponsavel(revisoesDocDTO.getResponsavel());
-        entity.setDataEnvio(revisoesDocDTO.getDataEnvio());
-        entity.setDataRespostaCiclo(revisoesDocDTO.getDataRespostaCiclo());
-        entity.setStatusRevisao(revisoesDocDTO.getStatusRevisao());
-        entity.setObservacoes(revisoesDocDTO.getObservacoes());
-        revisoesDocRepository.save(entity);
-        return revisoesDocDTO;
-    }
-    public Stream<RevisoesDocDTO> listarRevisoesDocs(){
-        List<RevisoesDoc> entity = revisoesDocRepository.findAll();
-        return entity.stream().map(revisoesDocs -> new RevisoesDocDTO(
-                revisoesDocs.getId(), revisoesDocs.getRevisao(), revisoesDocs.getResponsavel(), revisoesDocs.getDataEnvio(),
-                revisoesDocs.getDataRespostaCiclo(), revisoesDocs.getStatusRevisao(), revisoesDocs.getObservacoes()
+    private final RevisoesDocRepository revisoesDocRepository;
 
-        ));
+    public RevisoesDocService(RevisoesDocRepository revisoesDocRepository) {
+        this.revisoesDocRepository = revisoesDocRepository;
     }
-    public RevisoesDocDTO revisoesDocsPorId(Long id){
-        RevisoesDoc entity = revisoesDocRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
-        return new RevisoesDocDTO(
-                entity.getId(), entity.getRevisao(), entity.getResponsavel(), entity.getDataEnvio(),
-                entity.getDataRespostaCiclo(), entity.getStatusRevisao(), entity.getObservacoes()
-        );
+
+    public RevisoesDocDTO saveRevisaoDoc(RevisoesDocDTO dto) {
+        try {
+            RevisoesDoc entity = new RevisoesDoc();
+            entity.setRevisao(dto.getRevisao());
+            entity.setResponsavel(dto.getResponsavel());
+            entity.setDataEnvio(dto.getDataEnvio());
+            entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());
+            entity.setStatusRevisao(dto.getStatusRevisao());
+            entity.setObservacoes(dto.getObservacoes());
+
+            RevisoesDoc saved = revisoesDocRepository.save(entity);
+            dto.setId(saved.getId());
+            return dto;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar revisão de documento.", e);
+        }
     }
-    public void atualizarRevisaoDoc(Long id, RevisoesDocDTO revisoesDocDTO){
-        RevisoesDoc entity = revisoesDocRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
-        entity.setRevisao(revisoesDocDTO.getRevisao());
-        entity.setResponsavel(revisoesDocDTO.getResponsavel());
-        entity.setDataEnvio(revisoesDocDTO.getDataEnvio());
-        entity.setDataRespostaCiclo(revisoesDocDTO.getDataRespostaCiclo());
-        entity.setStatusRevisao(revisoesDocDTO.getStatusRevisao());
-        entity.setObservacoes(revisoesDocDTO.getObservacoes());
-        revisoesDocRepository.save(entity);
+
+//    public List<RevisoesDocDTO> listarRevisoesDocs() {
+//        List<RevisoesDoc> entities = revisoesDocRepository.findAll();
+//        if (entities.isEmpty()) {
+//            throw new RuntimeException("Nenhuma revisão de documento encontrada.");
+//        }
+//
+//        return entities.stream()
+//                .map(doc -> new RevisoesDocDTO(
+//                        doc.getId(),
+//                        doc.getRevisao(),
+//                        doc.getResponsavel(),
+//                        doc.getDataEnvio(),
+//                        doc.getDataRespostaCiclo(),
+//                        doc.getStatusRevisao(),
+//                        doc.getObservacoes(),
+//                        doc.getRejeicoes()
+//                ))
+//                .toList();
+//    }
+
+//    public RevisoesDocDTO getRevisaoDocById(Long id) {
+//        RevisoesDoc entity = revisoesDocRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Revisão de documento não encontrada com ID: " + id));
+//
+//        return new RevisoesDocDTO(
+//                entity.getId(),
+//                entity.getRevisao(),
+//                entity.getResponsavel(),
+//                entity.getDataEnvio(),
+//                entity.getDataRespostaCiclo(),
+//                entity.getStatusRevisao(),
+//                entity.getObservacoes()
+//        );
+//    }
+
+    public RevisoesDocDTO updateRevisaoDoc(Long id, RevisoesDocDTO dto) {
+        RevisoesDoc entity = revisoesDocRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Revisão de documento não encontrada com ID: " + id));
+
+        entity.setRevisao(dto.getRevisao());
+        entity.setResponsavel(dto.getResponsavel());
+        entity.setDataEnvio(dto.getDataEnvio());
+        entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());
+        entity.setStatusRevisao(dto.getStatusRevisao());
+        entity.setObservacoes(dto.getObservacoes());
+
+        RevisoesDoc updated = revisoesDocRepository.save(entity);
+        dto.setId(updated.getId());
+        return dto;
     }
-    public void deleteRevisaoDoc(Long id){
-      revisoesDocRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("id não encontrado"));
-      revisoesDocRepository.deleteById(id);
+
+    public void deleteRevisaoDoc(Long id) {
+        if (!revisoesDocRepository.existsById(id)) {
+            throw new RuntimeException("Revisão de documento não encontrada com ID: " + id);
+        }
+        revisoesDocRepository.deleteById(id);
     }
 }

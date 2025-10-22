@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,23 +57,23 @@ public class Documentos {
         @Column(name = "qtd_prevista")
         private Integer qtdPrevista;
         @Column(precision = 6, scale = 2)
-        private Double multiplicador;
+        private BigDecimal multiplicador;
         @Column(name = "item_qqf", length = 30)
         private String itemQqf;
         @Column(name = "equivalente_previsto", precision = 10, scale = 2)
-        private Double equivalentePrevisto;
+        private BigDecimal equivalentePrevisto;
         @Column(name = "equivalente_entregue", precision = 10, scale = 2)
-        private Double equivalenteEntregue;
+        private BigDecimal equivalenteEntregue;
         @Column(name = "valor_unitario", precision = 14, scale = 2)
-        private Double valorUnitario;
+        private BigDecimal valorUnitario;
         @Column(name = "valor_previsto", precision = 14, scale = 2)
-        private Double valorPrevisto;
+        private BigDecimal valorPrevisto;
         @Column(name = "valor_entregue", precision = 14, scale = 2)
-        private Double valorEntregue;
+        private BigDecimal valorEntregue;
         @Column(name = "valor_reajustado", precision = 14, scale = 2)
-        private Double valorReajustado;
+        private BigDecimal valorReajustado;
         @Column(name = "percentual_execucao", precision = 5, scale = 2)
-        private Double percentualExecucao;
+        private BigDecimal percentualExecucao;
         @Column(columnDefinition = "text")
         private String observacao;
         @Column(name = "created_at")

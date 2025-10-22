@@ -1,0 +1,25 @@
+package br.com.projeta_api.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ChamadosDTO {
+
+    private Long id;
+    private String coordenador;
+    private Boolean atendido;
+    private String nomeProjeto;
+    private String codigoCliente;
+    private LocalDate dataAbertura;
+    private LocalDate dataAgendamento;
+    private LocalDate dataVisita;
+    private LocalDateTime dataEstimativa;
+    private LocalDateTime createdAt;
+}

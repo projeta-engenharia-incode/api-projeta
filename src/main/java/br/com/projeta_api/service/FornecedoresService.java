@@ -2,6 +2,7 @@ package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.FornecedoresDTO;
 import br.com.projeta_api.model.Fornecedores;
+import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.FornecedoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,43 +12,68 @@ import java.util.stream.Stream;
 
 @Service
 public class FornecedoresService {
-    @Autowired
-    private FornecedoresRepository fornecedoresRepository;
 
-    public FornecedoresDTO fornecedor(FornecedoresDTO fornecedoresDTO){
-        Fornecedores entity = new Fornecedores();
-        entity.setContratoId(fornecedoresDTO.getContrato_id());
-        entity.setNome(fornecedoresDTO.getNome());
-        entity.setTipo(fornecedoresDTO.getTipo());
-        fornecedoresRepository.save(entity);
-        return fornecedoresDTO;
+    private final FornecedoresRepository fornecedoresRepository;
+
+    public FornecedoresService(FornecedoresRepository fornecedoresRepository) {
+        this.fornecedoresRepository = fornecedoresRepository;
     }
-    public Stream<FornecedoresDTO> listarFornecedores(){
+
+    public FornecedoresDTO criarFornecedor(FornecedoresDTO fornecedoresDTO) {
+        try {
+            Fornecedores entity = new Fornecedores();
+            entity.setContrato_id(fornecedoresDTO.getContrato_id());
+            entity.setNome(fornecedoresDTO.getNome());
+            entity.setTipo(fornecedoresDTO.getTipo());
+            fornecedoresRepository.save(entity);
+            return fornecedoresDTO;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao criar fornecedor.", e);
+        }
+    }
+
+    public Stream<FornecedoresDTO> listarFornecedores() {
         List<Fornecedores> entity = fornecedoresRepository.findAll();
+        if (entity.isEmpty()) {
+            throw new RuntimeException("Nenhum fornecedor encontrado.");
+        }
         return entity.stream().map(fornecedores -> new FornecedoresDTO(
-                fornecedores.getId(), fornecedores.getContratoId(),
-                fornecedores.getNome(), fornecedores.getTipo()
+                fornecedores.getId(),
+                fornecedores.getContrato_id(),
+                fornecedores.getNome(),
+                fornecedores.getTipo()
         ));
     }
-    public FornecedoresDTO fornecedoresPorId(Long id){
-        Fornecedores entity = fornecedoresRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    public FornecedoresDTO fornecedorPorId(Long id) {
+        Fornecedores entity = fornecedoresRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com o ID: " + id));
         return new FornecedoresDTO(
-                entity.getId(), entity.getContratoId(),
-                entity.getNome(), entity.getTipo()
+                entity.getId(),
+                entity.getContrato_id(),
+                entity.getNome(),
+                entity.getTipo()
         );
     }
-    public void atualizarFornecedor(Long id, FornecedoresDTO fornecedoresDTO){
-        Fornecedores entity = fornecedoresRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
-        entity.setContratoId(fornecedoresDTO.getContrato_id());
-        entity.setNome(fornecedoresDTO.getNome());
-        entity.setTipo(fornecedoresDTO.getTipo());
-        fornecedoresRepository.save(entity);
+
+    public FornecedoresDTO atualizarFornecedor(Long id, FornecedoresDTO fornecedoresDTO) {
+        try {
+            Fornecedores entity = fornecedoresRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com o ID: " + id));
+            entity.setContrato_id(fornecedoresDTO.getContrato_id());
+            entity.setNome(fornecedoresDTO.getNome());
+            entity.setTipo(fornecedoresDTO.getTipo());
+            fornecedoresRepository.save(entity);
+            return fornecedoresDTO;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar fornecedor.", e);
+        }
     }
-    public void deletarFornecedor(Long id){
-        fornecedoresRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    public void deletarFornecedor(Long id) {
+        if (!fornecedoresRepository.existsById(id)) {
+            throw new RuntimeException("Fornecedor não encontrado com o ID: " + id);
+        }
         fornecedoresRepository.deleteById(id);
     }
 }

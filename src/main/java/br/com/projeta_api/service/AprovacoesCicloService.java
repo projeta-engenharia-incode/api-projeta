@@ -3,57 +3,91 @@ package br.com.projeta_api.service;
 import br.com.projeta_api.DTO.request.AprovacoesCicloDTO;
 import br.com.projeta_api.model.AprovacoesCiclo;
 import br.com.projeta_api.repository.AprovacoesCicloRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class AprovacoesCicloService {
-    @Autowired
-    private AprovacoesCicloRepository aprovacoesCicloRepository;
 
-    public AprovacoesCicloDTO aprovacaoCiclo(AprovacoesCicloDTO dto){
-        AprovacoesCiclo  ciclo = new AprovacoesCiclo();
-        ciclo.setDocumentos(dto.getDocumento());
-        ciclo.setCiclo(dto.getCiclo());
-        ciclo.setData_aprovacao(dto.getData_aprovacao());
-        ciclo.setAutorizado_por(dto.getAutorizado_por());
-        ciclo.setStatus_aprovacao(dto.getStatus_aprovacao());
-        ciclo.setObservacoes(dto.getObservacoes());
-        aprovacoesCicloRepository.save(ciclo);
-        return dto;
+    private final AprovacoesCicloRepository aprovacoesCicloRepository;
+
+
+    public AprovacoesCicloService(AprovacoesCicloRepository aprovacoesCicloRepository) {
+        this.aprovacoesCicloRepository = aprovacoesCicloRepository;
     }
-    public Stream<AprovacoesCicloDTO> listarAprovacoesCiclos(){
-        List<AprovacoesCiclo> entity = aprovacoesCicloRepository.findAll();
-        return entity.stream().map(aprovacoesCiclos -> new AprovacoesCicloDTO(
-            aprovacoesCiclos.getId(), aprovacoesCiclos.getDocumentos(), aprovacoesCiclos.getCiclo(), aprovacoesCiclos.getData_aprovacao(),
-                aprovacoesCiclos.getAutorizado_por(), aprovacoesCiclos.getStatus_aprovacao(), aprovacoesCiclos.getObservacoes()
-        ));
+
+    public AprovacoesCicloDTO saveAprovacaoCiclo(AprovacoesCicloDTO dto) {
+        try {
+            AprovacoesCiclo entity = new AprovacoesCiclo();
+            entity.setDocumento_id(dto.getDocumento_id());
+            entity.setCiclo_id(dto.getCiclo_id());
+            entity.setData_aprovacao(dto.getData_aprovacao());
+            entity.setAutorizado_por(dto.getAutorizado_por());
+            entity.setStatus_aprovacao(dto.getStatus_aprovacao());
+            entity.setObservacoes(dto.getObservacoes());
+
+            AprovacoesCiclo savedEntity = aprovacoesCicloRepository.save(entity);
+            dto.setId(savedEntity.getId());
+            return dto;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar aprovação de ciclo.", e);
+        }
     }
-    public AprovacoesCicloDTO aprovacoesCiclosPorId(Long id){
-        AprovacoesCiclo ciclo = aprovacoesCicloRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    public List<AprovacoesCicloDTO> listarAprovacoesCiclos() {
+        List<AprovacoesCiclo> entities = aprovacoesCicloRepository.findAll();
+        if (entities.isEmpty()) {
+            throw new RuntimeException("Nenhuma aprovação de ciclo encontrada.");
+        }
+        return entities.stream()
+                .map(ciclo -> new AprovacoesCicloDTO(
+                        ciclo.getId(),
+                        ciclo.getDocumento_id(),
+                        ciclo.getCiclo_id(),
+                        ciclo.getData_aprovacao(),
+                        ciclo.getAutorizado_por(),
+                        ciclo.getStatus_aprovacao(),
+                        ciclo.getObservacoes()
+                ))
+                .toList();
+    }
+
+    public AprovacoesCicloDTO getAprovacaoCicloById(Long id) {
+        AprovacoesCiclo entity = aprovacoesCicloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id));
+
         return new AprovacoesCicloDTO(
-                ciclo.getId(), ciclo.getDocumentos(), ciclo.getCiclo(), ciclo.getData_aprovacao(),
-                ciclo.getAutorizado_por(), ciclo.getStatus_aprovacao(), ciclo.getObservacoes()
+                entity.getId(),
+                entity.getDocumento_id(),
+                entity.getCiclo_id(),
+                entity.getData_aprovacao(),
+                entity.getAutorizado_por(),
+                entity.getStatus_aprovacao(),
+                entity.getObservacoes()
         );
     }
-    public void atualizarAprovacaoCiclo(Long id, AprovacoesCicloDTO cicloDTO){
-        AprovacoesCiclo ciclo = aprovacoesCicloRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
-        ciclo.setDocumentos(cicloDTO.getDocumento());
-        ciclo.setCiclo(cicloDTO.getCiclo());
-        ciclo.setData_aprovacao(cicloDTO.getData_aprovacao());
-        ciclo.setAutorizado_por(cicloDTO.getAutorizado_por());
-        ciclo.setStatus_aprovacao(cicloDTO.getStatus_aprovacao());
-        ciclo.setObservacoes(cicloDTO.getObservacoes());
-        aprovacoesCicloRepository.save(ciclo);
+
+    public AprovacoesCicloDTO updateAprovacaoCiclo(Long id, AprovacoesCicloDTO dto) {
+        AprovacoesCiclo entity = aprovacoesCicloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id));
+
+        entity.setDocumento_id(dto.getDocumento_id());
+        entity.setCiclo_id(dto.getCiclo_id());
+        entity.setData_aprovacao(dto.getData_aprovacao());
+        entity.setAutorizado_por(dto.getAutorizado_por());
+        entity.setStatus_aprovacao(dto.getStatus_aprovacao());
+        entity.setObservacoes(dto.getObservacoes());
+
+        AprovacoesCiclo updated = aprovacoesCicloRepository.save(entity);
+        dto.setId(updated.getId());
+        return dto;
     }
-    public void deletarAprovacaoCiclo(Long id){
-        aprovacoesCicloRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id não encontrado"));
+
+    public void deleteAprovacaoCiclo(Long id) {
+        if (!aprovacoesCicloRepository.existsById(id)) {
+            throw new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id);
+        }
         aprovacoesCicloRepository.deleteById(id);
     }
 }

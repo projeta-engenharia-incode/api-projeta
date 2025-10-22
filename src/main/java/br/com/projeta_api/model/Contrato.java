@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import ch.qos.logback.core.joran.spi.NoAutoStart;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Table(name = "contratos")
 public class Contrato {
 
@@ -45,7 +46,7 @@ public class Contrato {
     private BigDecimal valorTotal;
 
     @Column(name = "revisao")
-    private Integer revisao;
+    private Integer revisao = 1;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pre_contrato_id")

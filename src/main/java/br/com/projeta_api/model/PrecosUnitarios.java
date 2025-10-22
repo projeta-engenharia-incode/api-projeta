@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -27,5 +29,5 @@ public class PrecosUnitarios {
     @Column(name = "quantidade", length = 11)
     private Integer quantidade;
     @Column(name = "preco_unitario", precision = 10, scale = 2)
-    private Double precoUnitario;
+    private BigDecimal precoUnitario;
 }

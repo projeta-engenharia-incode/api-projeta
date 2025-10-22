@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TiposRejeicoesDTO {
     private Long id;
-    @Column(name = "codigo", length = 18, nullable = false)
     private String codigo;
-    @Column(name = "descricao",columnDefinition = "TEXT")
     private String descricao;
+    private List<Long> rejeicoesIds;
 }

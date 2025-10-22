@@ -9,24 +9,21 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
 @Table(name = "chamados")
 public class Chamados {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "contrato_id", nullable = false)
-    private Contrato contrato;
-
-    @Column(length = 120)
+    @Column(name = "coordenador", length = 120)
     private String coordenador;
 
-    @Column(nullable = false)
+    @Column(name = "atendido", nullable = false)
     private Boolean atendido;
 
     @Column(name = "nome_projeto", nullable = false)
