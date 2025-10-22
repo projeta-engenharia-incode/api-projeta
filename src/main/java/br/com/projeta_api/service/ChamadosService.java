@@ -2,7 +2,9 @@ package br.com.projeta_api.service;
 
 import br.com.projeta_api.dto.ChamadosDTO;
 import br.com.projeta_api.model.Chamados;
+import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.repository.ChamadosRepository;
+import br.com.projeta_api.repository.ContratoRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,8 +15,11 @@ public class ChamadosService {
 
     private final ChamadosRepository chamadosRepository;
 
-    public ChamadosService(ChamadosRepository chamadosRepository) {
+    private final ContratoRepository contratoRepository;
+
+    public ChamadosService(ChamadosRepository chamadosRepository,  ContratoRepository contratoRepository) {
         this.chamadosRepository = chamadosRepository;
+        this.contratoRepository = contratoRepository;
     }
 
     public ChamadosDTO criarChamado(ChamadosDTO dto) {
@@ -24,6 +29,10 @@ public class ChamadosService {
             entity.setAtendido(dto.getAtendido());
             entity.setNomeProjeto(dto.getNomeProjeto());
             entity.setCodigoCliente(dto.getCodigoCliente());
+
+            Contrato contrato = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            entity.setContrato(contrato);
+
             entity.setDataAbertura(dto.getDataAbertura());
             entity.setDataAgendamento(dto.getDataAgendamento());
             entity.setDataVisita(dto.getDataVisita());
@@ -50,6 +59,7 @@ public class ChamadosService {
                         chamado.getAtendido(),
                         chamado.getNomeProjeto(),
                         chamado.getCodigoCliente(),
+                        chamado.getContrato().getId(),
                         chamado.getDataAbertura(),
                         chamado.getDataAgendamento(),
                         chamado.getDataVisita(),
@@ -69,6 +79,7 @@ public class ChamadosService {
                 entity.getAtendido(),
                 entity.getNomeProjeto(),
                 entity.getCodigoCliente(),
+                entity.getContrato().getId(),
                 entity.getDataAbertura(),
                 entity.getDataAgendamento(),
                 entity.getDataVisita(),
@@ -81,10 +92,13 @@ public class ChamadosService {
         Chamados entity = chamadosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Chamado não encontrado com ID: " + id));
 
+        Contrato contratoUp = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+
         entity.setCoordenador(dto.getCoordenador());
         entity.setAtendido(dto.getAtendido());
         entity.setNomeProjeto(dto.getNomeProjeto());
         entity.setCodigoCliente(dto.getCodigoCliente());
+        entity.setContrato(contratoUp);
         entity.setDataAbertura(dto.getDataAbertura());
         entity.setDataAgendamento(dto.getDataAgendamento());
         entity.setDataVisita(dto.getDataVisita());

@@ -3,7 +3,6 @@ package br.com.projeta_api.service;
 import br.com.projeta_api.DTO.request.EmissaoDocumentoDTO;
 import br.com.projeta_api.model.Documentos;
 import br.com.projeta_api.model.EmissoesDocumento;
-import br.com.projeta_api.repository.CicloRepository;
 import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.EmissoesDocumentoRepository;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ public class EmissoesDocumentosService {
         this.documentosRepository = documentosRepository;
     }
 
-    // Criar emissão de documento
     public EmissaoDocumentoDTO saveEmissaoDocumento(EmissaoDocumentoDTO dto) {
         try {
             EmissoesDocumento entity = new EmissoesDocumento();
@@ -51,7 +49,6 @@ public class EmissoesDocumentosService {
         }
     }
 
-    // Listar todas as emissões de documento
     public List<EmissaoDocumentoDTO> listarEmissoesDocumentos() {
         List<EmissoesDocumento> entities = emissoesDocumentoRepository.findAll();
         if (entities.isEmpty()) {
@@ -77,7 +74,6 @@ public class EmissoesDocumentosService {
                 .toList();
     }
 
-    // Buscar por ID
     public EmissaoDocumentoDTO getEmissaoDocumentoById(Long id) {
         EmissoesDocumento entity = emissoesDocumentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com ID: " + id));
@@ -99,7 +95,6 @@ public class EmissoesDocumentosService {
         );
     }
 
-    // Atualizar emissão de documento
     public EmissaoDocumentoDTO updateEmissaoDocumento(Long id, EmissaoDocumentoDTO dto) {
         EmissoesDocumento entity = emissoesDocumentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emissão de documento não encontrada com ID: " + id));
@@ -127,7 +122,6 @@ public class EmissoesDocumentosService {
         return dto;
     }
 
-    // Deletar emissão de documento
     public void deleteEmissaoDocumento(Long id) {
         if (!emissoesDocumentoRepository.existsById(id)) {
             throw new RuntimeException("Emissão de documento não encontrada com ID: " + id);

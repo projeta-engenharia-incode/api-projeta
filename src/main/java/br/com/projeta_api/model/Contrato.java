@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -47,6 +49,9 @@ public class Contrato {
 
     @Column(name = "revisao")
     private Integer revisao = 1;
+
+    @OneToMany(mappedBy = "contrato", fetch = FetchType.LAZY)
+    private List<Chamados> chamados = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pre_contrato_id")

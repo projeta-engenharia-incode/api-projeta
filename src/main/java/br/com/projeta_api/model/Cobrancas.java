@@ -31,6 +31,8 @@ public class Cobrancas {
     @Column(name = "valor_total", precision = 14, scale = 2)
     private BigDecimal valorTotal;
 
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_cobranca", length = 40)
-    private String statusCobranca;
+    private StatusCobranca statusCobranca;
 }

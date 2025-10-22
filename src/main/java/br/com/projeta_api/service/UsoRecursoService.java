@@ -8,11 +8,9 @@ import br.com.projeta_api.model.UsoRecursos;
 import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.RecursoRepository;
 import br.com.projeta_api.repository.UsoRecursosRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class UsoRecursoService {
@@ -29,7 +27,6 @@ public class UsoRecursoService {
         this.documentosRepository = documentosRepository;
     }
 
-    // Salvar uso de recurso
     public UsoRecursosDTO saveUsoRecurso(UsoRecursosDTO dto) {
         try {
             UsoRecursos entity = new UsoRecursos();
@@ -48,7 +45,6 @@ public class UsoRecursoService {
         }
     }
 
-    // Listar todos os usos de recurso
     public List<UsoRecursosDTO> listarUsoRecursos() {
         List<UsoRecursos> entities = usoRecursosRepository.findAll();
         if (entities.isEmpty()) {
@@ -66,7 +62,6 @@ public class UsoRecursoService {
                 .toList();
     }
 
-    // Buscar uso de recurso por ID
     public UsoRecursosDTO getUsoRecursoById(Long id) {
         UsoRecursos entity = usoRecursosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Uso de recurso não encontrado com ID: " + id));
@@ -80,7 +75,6 @@ public class UsoRecursoService {
         );
     }
 
-    // Atualizar uso de recurso
     public UsoRecursosDTO updateUsoRecurso(Long id, UsoRecursosDTO dto) {
         UsoRecursos entity = usoRecursosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Uso de recurso não encontrado com ID: " + id));
@@ -98,7 +92,6 @@ public class UsoRecursoService {
         return dto;
     }
 
-    // Deletar uso de recurso
     public void deleteUsoRecurso(Long id) {
         if (!usoRecursosRepository.existsById(id)) {
             throw new RuntimeException("Uso de recurso não encontrado com ID: " + id);

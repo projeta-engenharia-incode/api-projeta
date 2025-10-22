@@ -24,7 +24,6 @@ public class PagamentosFornecedoresService {
         this.documentosRepository = documentosRepository;
     }
 
-    // Salvar pagamento
     public PagamentosFornecedoresDTO savePagamentoFornecedor(PagamentosFornecedoresDTO dto) {
         try {
             PagamentosFornecedores entity = new PagamentosFornecedores();
@@ -45,7 +44,6 @@ public class PagamentosFornecedoresService {
         }
     }
 
-    // Listar todos os pagamentos
     public List<PagamentosFornecedoresDTO> listarPagamentosFornecedores() {
         List<PagamentosFornecedores> entities = pagamentosFornecedoresRepository.findAll();
         if (entities.isEmpty()) {
@@ -64,7 +62,6 @@ public class PagamentosFornecedoresService {
                 .toList();
     }
 
-    // Buscar pagamento por ID
     public PagamentosFornecedoresDTO getPagamentoFornecedorById(Long id) {
         PagamentosFornecedores entity = pagamentosFornecedoresRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pagamento de fornecedor não encontrado com ID: " + id));
@@ -79,7 +76,6 @@ public class PagamentosFornecedoresService {
         );
     }
 
-    // Atualizar pagamento
     public PagamentosFornecedoresDTO updatePagamentoFornecedor(Long id, PagamentosFornecedoresDTO dto) {
         PagamentosFornecedores entity = pagamentosFornecedoresRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pagamento de fornecedor não encontrado com ID: " + id));
@@ -98,7 +94,6 @@ public class PagamentosFornecedoresService {
         return dto;
     }
 
-    // Deletar pagamento
     public void deletePagamentoFornecedor(Long id) {
         if (!pagamentosFornecedoresRepository.existsById(id)) {
             throw new RuntimeException("Pagamento de fornecedor não encontrado com ID: " + id);

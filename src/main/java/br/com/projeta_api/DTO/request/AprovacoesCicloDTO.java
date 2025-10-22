@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AprovacoesCicloDTO {
     private Long id;
-    private Long documentoId; // pega o id do documento
-    private Long cicloId;     // pega o id do ciclo
+    private Long documentoId;
+    private Long cicloId;
     private LocalDateTime dataAprovacao;
     private String autorizadoPor;
     private String statusAprovacao;

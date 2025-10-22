@@ -5,11 +5,9 @@ import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.model.PrecosUnitarios;
 import br.com.projeta_api.repository.ContratoRepository;
 import br.com.projeta_api.repository.PrecosUnitariosRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class PrecosUnitariosService {
@@ -22,7 +20,6 @@ public class PrecosUnitariosService {
         this.contratoRepository = contratoRepository;
     }
 
-    // Salvar preço unitário
     public PrecosUnitariosDTO savePrecoUnitario(PrecosUnitariosDTO dto) {
         try {
             PrecosUnitarios entity = new PrecosUnitarios();
@@ -41,7 +38,6 @@ public class PrecosUnitariosService {
         }
     }
 
-    // Listar todos os preços unitários
     public List<PrecosUnitariosDTO> listarPrecosUnitarios() {
         List<PrecosUnitarios> entities = precosUnitariosRepository.findAll();
         if (entities.isEmpty()) {
@@ -60,7 +56,6 @@ public class PrecosUnitariosService {
                 .toList();
     }
 
-    // Buscar preço unitário por ID
     public PrecosUnitariosDTO getPrecoUnitarioById(Long id) {
         PrecosUnitarios entity = precosUnitariosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Preço unitário não encontrado com ID: " + id));
@@ -75,7 +70,6 @@ public class PrecosUnitariosService {
         );
     }
 
-    // Atualizar preço unitário
     public PrecosUnitariosDTO updatePrecoUnitario(Long id, PrecosUnitariosDTO dto) {
         PrecosUnitarios entity = precosUnitariosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Preço unitário não encontrado com ID: " + id));
@@ -93,7 +87,6 @@ public class PrecosUnitariosService {
         return dto;
     }
 
-    // Deletar preço unitário
     public void deletePrecoUnitario(Long id) {
         if (!precosUnitariosRepository.existsById(id)) {
             throw new RuntimeException("Preço unitário não encontrado com ID: " + id);

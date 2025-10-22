@@ -6,13 +6,10 @@ import br.com.projeta_api.model.Documentos;
 import br.com.projeta_api.model.Projeto;
 import br.com.projeta_api.repository.CicloRepository;
 import br.com.projeta_api.repository.DocumentosRepository;
-import br.com.projeta_api.repository.PreContratoRepository;
 import br.com.projeta_api.repository.ProjetoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class DocumentosService {

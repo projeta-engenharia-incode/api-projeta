@@ -4,11 +4,9 @@ import br.com.projeta_api.DTO.request.ContratoDTO;
 import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.model.PreContrato;
 import br.com.projeta_api.repository.ContratoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class ContratoService {
@@ -18,7 +16,6 @@ public class ContratoService {
         this.contratoRepository = contratoRepository;
     }
 
-    // Salvar contrato
     public ContratoDTO saveContrato(ContratoDTO dto) {
         try {
             Contrato entity = new Contrato();
@@ -50,7 +47,6 @@ public class ContratoService {
         }
     }
 
-    // Listar todos os contratos
     public List<ContratoDTO> listarContratos() {
         List<Contrato> entities = contratoRepository.findAll();
         if (entities.isEmpty()) {
@@ -76,7 +72,6 @@ public class ContratoService {
                 .toList();
     }
 
-    // Buscar contrato por ID
     public ContratoDTO getContratoById(Long id) {
         Contrato entity = contratoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contrato não encontrado com ID: " + id));
@@ -98,7 +93,6 @@ public class ContratoService {
         );
     }
 
-    // Atualizar contrato
     public ContratoDTO updateContrato(Long id, ContratoDTO dto) {
         Contrato entity = contratoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contrato não encontrado com ID: " + id));
@@ -129,7 +123,6 @@ public class ContratoService {
         return dto;
     }
 
-    // Deletar contrato
     public void deleteContrato(Long id) {
         if (!contratoRepository.existsById(id)) {
             throw new RuntimeException("Contrato não encontrado com ID: " + id);

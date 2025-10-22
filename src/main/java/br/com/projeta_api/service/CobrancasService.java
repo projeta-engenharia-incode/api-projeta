@@ -6,7 +6,6 @@ import br.com.projeta_api.model.Ciclo;
 import br.com.projeta_api.model.Cobrancas;
 import br.com.projeta_api.repository.CicloRepository;
 import br.com.projeta_api.repository.CobrancasRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

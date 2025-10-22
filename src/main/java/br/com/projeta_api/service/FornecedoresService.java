@@ -4,9 +4,7 @@ import br.com.projeta_api.DTO.request.FornecedoresDTO;
 import br.com.projeta_api.model.Contrato;
 import br.com.projeta_api.model.Fornecedores;
 import br.com.projeta_api.repository.ContratoRepository;
-import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.FornecedoresRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

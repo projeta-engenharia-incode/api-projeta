@@ -17,6 +17,7 @@ public class ChamadosDTO {
     private Boolean atendido;
     private String nomeProjeto;
     private String codigoCliente;
+    private Long contratoId;
     private LocalDate dataAbertura;
     private LocalDate dataAgendamento;
     private LocalDate dataVisita;

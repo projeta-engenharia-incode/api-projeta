@@ -32,6 +32,10 @@ public class Chamados {
     @Column(name = "codigo_cliente", length = 50)
     private String codigoCliente;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contrato_id")
+    private Contrato contrato;
+
     @Column(name = "data_abertura")
     private LocalDate dataAbertura;
 
