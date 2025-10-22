@@ -1,20 +1,20 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import br.com.projeta_api.model.Documentos;
+import br.com.projeta_api.model.Recurso;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "uso_recursos")
-public class UsoRecursos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsoRecursosDTO {
     @Column(name = "id")
     private Long id;
     @ManyToOne
@@ -22,7 +22,7 @@ public class UsoRecursos {
     private Recurso recursoId;
     @ManyToOne
     @JoinColumn(name = "documento_id", nullable = false)
-    private Documentos documentos;
+    private Documentos documentoId;
     @Column(name = "quantidade_usada", length = 11)
     private Integer quantidadeUsada;
     @Column(name = "data_uso")

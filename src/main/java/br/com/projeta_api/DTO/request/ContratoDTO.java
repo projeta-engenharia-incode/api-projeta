@@ -1,6 +1,10 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import br.com.projeta_api.model.PreContrato;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +13,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "contratos")
-public class Contrato {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContratoDTO {
     private Long id;
 
     @Column(name = "codigo", length = 50, nullable = false, unique = true)
@@ -56,17 +55,5 @@ public class Contrato {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    // Preencher automaticamente as datas
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 
 }

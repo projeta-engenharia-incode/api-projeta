@@ -17,8 +17,9 @@ public class EmissoesDocumento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "documento_id", length = 11)
-    private Integer documento_id;
+    @ManyToOne
+    @JoinColumn(name = "documento_id")
+    private Documentos documentos;
     @Column(name = "fase", length = 20)
     private String fase;
     @Column(name = "tipo_revisao", length = 10)

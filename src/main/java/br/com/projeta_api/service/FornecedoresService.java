@@ -16,7 +16,7 @@ public class FornecedoresService {
 
     public FornecedoresDTO fornecedor(FornecedoresDTO fornecedoresDTO){
         Fornecedores entity = new Fornecedores();
-        entity.setContrato_id(fornecedoresDTO.getContrato_id());
+        entity.setContratoId(fornecedoresDTO.getContrato_id());
         entity.setNome(fornecedoresDTO.getNome());
         entity.setTipo(fornecedoresDTO.getTipo());
         fornecedoresRepository.save(entity);
@@ -25,7 +25,7 @@ public class FornecedoresService {
     public Stream<FornecedoresDTO> listarFornecedores(){
         List<Fornecedores> entity = fornecedoresRepository.findAll();
         return entity.stream().map(fornecedores -> new FornecedoresDTO(
-                fornecedores.getId(), fornecedores.getContrato_id(),
+                fornecedores.getId(), fornecedores.getContratoId(),
                 fornecedores.getNome(), fornecedores.getTipo()
         ));
     }
@@ -33,14 +33,14 @@ public class FornecedoresService {
         Fornecedores entity = fornecedoresRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("id não encontrado"));
         return new FornecedoresDTO(
-                entity.getId(), entity.getContrato_id(),
+                entity.getId(), entity.getContratoId(),
                 entity.getNome(), entity.getTipo()
         );
     }
     public void atualizarFornecedor(Long id, FornecedoresDTO fornecedoresDTO){
         Fornecedores entity = fornecedoresRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("id não encontrado"));
-        entity.setContrato_id(fornecedoresDTO.getContrato_id());
+        entity.setContratoId(fornecedoresDTO.getContrato_id());
         entity.setNome(fornecedoresDTO.getNome());
         entity.setTipo(fornecedoresDTO.getTipo());
         fornecedoresRepository.save(entity);

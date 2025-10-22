@@ -17,10 +17,12 @@ public class AprovacoesCiclo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "documento_id", length = 11)
-    private Integer documento_id;
-    @Column(name = "ciclo_id", length = 11)
-    private Integer ciclo_id;
+    @ManyToOne
+    @JoinColumn(name = "documento_id", nullable = false)
+    private Documentos documentos;
+    @ManyToOne
+    @JoinColumn(name = "ciclo_id", nullable = false)
+    private Ciclo ciclo;
     @Column(name = "data_aprovacao")
     private LocalDateTime data_aprovacao;
     @Column(name = "autorizado_pro", length = 120)

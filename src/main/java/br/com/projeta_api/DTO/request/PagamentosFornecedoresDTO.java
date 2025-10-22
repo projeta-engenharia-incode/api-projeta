@@ -1,19 +1,19 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import br.com.projeta_api.model.Documentos;
+import br.com.projeta_api.model.Fornecedores;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "pagamentos_forn")
-public class PagamentosFornecedores {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PagamentosFornecedoresDTO {
     @Column(name = "id")
     private Long id;
     @ManyToOne

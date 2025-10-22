@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class RevisoesDoc {
     private String responsavel;
     @Column(name = "data_envio")
     private LocalDateTime dataEnvio;
-    @Column(name = "data_resposta_cli")
+    @Column(name = "data_resposta_ciclo")
     private LocalDateTime dataRespostaCiclo;
     @Column(name = "status_revisao", length = 40)
     private String statusRevisao;
@@ -32,6 +33,6 @@ public class RevisoesDoc {
     private String observacoes;
 
     @OneToMany(mappedBy = "revisoesDoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RejeicoesRevisao> rejeicoes;
+    private List<RejeicoesRevisao> rejeicoes = new ArrayList<>();
 
 }

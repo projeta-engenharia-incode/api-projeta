@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -15,10 +18,14 @@ public class Fornecedores {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "contrato_id", length = 11)
-    private Integer contrato_id;
+    @ManyToOne
+    @JoinColumn(name = "contrato_id")
+    private Contrato contrato;
     @Column(name = "nome", length = 120)
     private String nome;
     @Column(name = "tipo", length = 60)
     private String tipo;
+
+    @OneToMany(mappedBy = "fornecedores", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PagamentosFornecedores> pagamentosFornecedores = new ArrayList<>();
 }

@@ -16,12 +16,10 @@ public class TiposRejeicoes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "codigo", length = 18, nullable = false)
     private String codigo;
     @Column(name = "descricao",columnDefinition = "TEXT")
     private String descricao;
-
     @OneToMany(mappedBy = "tiposRejeicoes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RejeicoesRevisao> rejeicoes;
 }

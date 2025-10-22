@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,10 +19,12 @@ public class Documentos {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
         private Long id;
-        @Column(name = "projeto_id")
-        private Integer projetoId;
-        @Column(name = "ciclo_id")
-        private Integer cicloId;
+        @ManyToOne
+        @JoinColumn(name = "projeto_id", nullable = false)
+        private Projeto projetoId;
+        @ManyToOne
+        @JoinColumn(name = "ciclo_id", nullable = false)
+        private Ciclo cicloId;
         @Column(name = "codigo_doc", nullable = false, length = 60)
         private String codigoDoc;
         @Column(name = "titulo_secundario", columnDefinition = "text")
@@ -75,4 +79,14 @@ public class Documentos {
         private LocalDateTime createdAt;
         @Column(name = "updated_at")
         private LocalDateTime updatedAt;
+
+        @OneToMany(mappedBy = "documentos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<UsoRecursos> usoRecursos = new ArrayList<>();
+
+        @OneToMany(mappedBy = "documentos",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<PagamentosFornecedores> pagamentosFornecedores = new ArrayList<>();
+
+        @OneToMany(mappedBy = "documentos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<AprovacoesCiclo> aprovacoesCiclos = new ArrayList<>();
+
 }

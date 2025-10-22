@@ -14,21 +14,21 @@ public class AprovacoesCicloService {
     @Autowired
     private AprovacoesCicloRepository aprovacoesCicloRepository;
 
-    public AprovacoesCicloDTO aprovacaoCiclo(AprovacoesCicloDTO aprovacoesCicloDTO){
+    public AprovacoesCicloDTO aprovacaoCiclo(AprovacoesCicloDTO dto){
         AprovacoesCiclo  ciclo = new AprovacoesCiclo();
-        ciclo.setDocumento_id(aprovacoesCicloDTO.getDocumento_id());
-        ciclo.setCiclo_id(aprovacoesCicloDTO.getCiclo_id());
-        ciclo.setData_aprovacao(aprovacoesCicloDTO.getData_aprovacao());
-        ciclo.setAutorizado_por(aprovacoesCicloDTO.getAutorizado_por());
-        ciclo.setStatus_aprovacao(aprovacoesCicloDTO.getStatus_aprovacao());
-        ciclo.setObservacoes(aprovacoesCicloDTO.getObservacoes());
+        ciclo.setDocumentos(dto.getDocumento());
+        ciclo.setCiclo(dto.getCiclo());
+        ciclo.setData_aprovacao(dto.getData_aprovacao());
+        ciclo.setAutorizado_por(dto.getAutorizado_por());
+        ciclo.setStatus_aprovacao(dto.getStatus_aprovacao());
+        ciclo.setObservacoes(dto.getObservacoes());
         aprovacoesCicloRepository.save(ciclo);
-        return aprovacoesCicloDTO;
+        return dto;
     }
     public Stream<AprovacoesCicloDTO> listarAprovacoesCiclos(){
         List<AprovacoesCiclo> entity = aprovacoesCicloRepository.findAll();
         return entity.stream().map(aprovacoesCiclos -> new AprovacoesCicloDTO(
-            aprovacoesCiclos.getId(), aprovacoesCiclos.getDocumento_id(), aprovacoesCiclos.getCiclo_id(), aprovacoesCiclos.getData_aprovacao(),
+            aprovacoesCiclos.getId(), aprovacoesCiclos.getDocumentos(), aprovacoesCiclos.getCiclo(), aprovacoesCiclos.getData_aprovacao(),
                 aprovacoesCiclos.getAutorizado_por(), aprovacoesCiclos.getStatus_aprovacao(), aprovacoesCiclos.getObservacoes()
         ));
     }
@@ -36,15 +36,15 @@ public class AprovacoesCicloService {
         AprovacoesCiclo ciclo = aprovacoesCicloRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("id não encontrado"));
         return new AprovacoesCicloDTO(
-                ciclo.getId(), ciclo.getDocumento_id(), ciclo.getCiclo_id(), ciclo.getData_aprovacao(),
+                ciclo.getId(), ciclo.getDocumentos(), ciclo.getCiclo(), ciclo.getData_aprovacao(),
                 ciclo.getAutorizado_por(), ciclo.getStatus_aprovacao(), ciclo.getObservacoes()
         );
     }
     public void atualizarAprovacaoCiclo(Long id, AprovacoesCicloDTO cicloDTO){
         AprovacoesCiclo ciclo = aprovacoesCicloRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("id não encontrado"));
-        ciclo.setDocumento_id(cicloDTO.getDocumento_id());
-        ciclo.setCiclo_id(cicloDTO.getCiclo_id());
+        ciclo.setDocumentos(cicloDTO.getDocumento());
+        ciclo.setCiclo(cicloDTO.getCiclo());
         ciclo.setData_aprovacao(cicloDTO.getData_aprovacao());
         ciclo.setAutorizado_por(cicloDTO.getAutorizado_por());
         ciclo.setStatus_aprovacao(cicloDTO.getStatus_aprovacao());

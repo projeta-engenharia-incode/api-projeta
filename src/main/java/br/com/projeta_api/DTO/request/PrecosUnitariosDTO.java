@@ -1,25 +1,21 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.DTO.request;
 
-import jakarta.persistence.*;
+import br.com.projeta_api.model.Contrato;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "precos_unitarios")
-public class PrecosUnitarios {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PrecosUnitariosDTO {
     @Column(name = "id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "contrato_id",nullable = false)
-    private Contrato contrato;
+    @Column(name = "contrato_id", length = 20)
+    private Contrato contratoId;
     @Column(name = "categoria", length = 120)
-    private String categoria;
+    private String contrato;
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
     @Column(name = "formato", length = 20)
