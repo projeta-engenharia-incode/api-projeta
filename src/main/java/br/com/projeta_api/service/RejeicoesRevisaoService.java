@@ -38,8 +38,8 @@ public class RejeicoesRevisaoService {
 
             RejeicoesRevisao entity = new RejeicoesRevisao();
 
-            TiposRejeicoes tiposRej = tiposRejeicoesRepository.findById(entity.getTiposRejeicoes().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
-            RevisoesDoc revisoesDoc = revisoesDocRepository.findById(entity.getRevisoesDoc().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            TiposRejeicoes tiposRej = tiposRejeicoesRepository.findById(dto.getTiposRejeicoesId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            RevisoesDoc revisoesDoc = revisoesDocRepository.findById(dto.getRevisoesDocId()).orElseThrow(() -> new RuntimeException("ERRO"));
 
             entity.setTiposRejeicoes(tiposRej);
             entity.setRevisoesDoc(revisoesDoc);
@@ -48,7 +48,7 @@ public class RejeicoesRevisaoService {
             dto.setId(savedEntity.getId());
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar rejeição de revisão.", e);
+            throw new RuntimeException("Erro ao criar rejeição de revisão." + e.getMessage());
         }
     }
 

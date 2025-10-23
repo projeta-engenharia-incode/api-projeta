@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class FornecedoresDTO {
 
     private Long id;
-    private Long contratId;
+    private Long contratoId;
     private String nome;
     private String tipo;
 }

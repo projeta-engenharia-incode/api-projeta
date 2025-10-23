@@ -39,9 +39,9 @@ public class MedicoesDocumentosService {
         try {
             MedicoesDocumentos entity = new MedicoesDocumentos();
 
-            Documentos doc = documentosRepository.findById(entity.getDocumento().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
 
-            Ciclo ciclo = cicloRepository.findById(entity.getCiclo().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
+            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
             entity.setDocumento(doc);
             entity.setCiclo(ciclo);
             entity.setNumeroBoletim(dto.getNumeroBoletim());
@@ -58,7 +58,7 @@ public class MedicoesDocumentosService {
 
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar boletim.", e);
+            throw new RuntimeException("Erro ao salvar boletim." + e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class MedicoesDocumentosService {
             MedicoesDocumentos entity = medicoesDocumentosRepository.findById(dto.getId())
                     .orElseThrow(() -> new RuntimeException("Boletim não encontrado com ID: " + dto.getId()));
 
-            Documentos docUp = documentosRepository.findById(entity.getDocumento().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
+            Documentos docUp = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
 
             Ciclo cicloUp = cicloRepository.findById(entity.getCiclo().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
 

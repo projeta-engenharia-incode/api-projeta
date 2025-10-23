@@ -16,9 +16,9 @@ public class RejeicoesRevisao {
     @Column(name = "id")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "tipos_rejeicoes_id", nullable = false)
+    @JoinColumn(name = "tipos_rejeicoes_id")
     private TiposRejeicoes tiposRejeicoes;
     @ManyToOne
-    @JoinColumn(name = "id_revisoes", nullable = false)
+    @JoinColumn(name = "id_revisoes")
     private RevisoesDoc revisoesDoc;
 }

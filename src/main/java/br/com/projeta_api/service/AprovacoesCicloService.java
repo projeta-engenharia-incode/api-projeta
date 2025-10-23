@@ -31,11 +31,12 @@ public class AprovacoesCicloService {
         try {
             AprovacoesCiclo entity = new AprovacoesCiclo();
 
-            Documentos doc = documentosRepository.findById(entity.getDocumentos().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
-            Ciclo ciclo =  cicloRepository.findById(entity.getCiclo().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Ciclo ciclo =  cicloRepository.findById(dto.getCicloId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setDocumentos(doc);
             entity.setCiclo(ciclo);
             entity.setData_aprovacao(dto.getDataAprovacao());
+            entity.setOrigem(dto.getOrigem());
             entity.setAutorizado_por(dto.getAutorizadoPor());
             entity.setStatus_aprovacao(dto.getStatusAprovacao());
             entity.setObservacoes(dto.getObservacoes());
@@ -44,7 +45,7 @@ public class AprovacoesCicloService {
             dto.setId(savedEntity.getId());
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar aprovação de ciclo.", e);
+            throw new RuntimeException("Erro ao salvar aprovação de ciclo." + e.getMessage());
         }
     }
 
@@ -59,6 +60,7 @@ public class AprovacoesCicloService {
                         ciclo.getDocumentos().getId(),
                         ciclo.getCiclo().getId(),
                         ciclo.getData_aprovacao(),
+                        ciclo.getOrigem(),
                         ciclo.getAutorizado_por(),
                         ciclo.getStatus_aprovacao(),
                         ciclo.getObservacoes()
@@ -75,6 +77,7 @@ public class AprovacoesCicloService {
                 entity.getDocumentos().getId(),
                 entity.getCiclo().getId(),
                 entity.getData_aprovacao(),
+                entity.getOrigem(),
                 entity.getAutorizado_por(),
                 entity.getStatus_aprovacao(),
                 entity.getObservacoes()
@@ -92,6 +95,7 @@ public class AprovacoesCicloService {
         entity.setCiclo(cicloUp);
         entity.setData_aprovacao(dto.getDataAprovacao());
         entity.setAutorizado_por(dto.getAutorizadoPor());
+        entity.setOrigem(dto.getOrigem());
         entity.setStatus_aprovacao(dto.getStatusAprovacao());
         entity.setObservacoes(dto.getObservacoes());
 

@@ -23,7 +23,7 @@ public class ContratoDTO {
     private LocalDate dataFim;
     private BigDecimal valorTotal;
     private Integer revisao;
-    private Long preContratoId; // apenas o ID do pre-contrato
+    private Long preContratoId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

@@ -35,7 +35,7 @@ public class ProjetoService {
         try {
             Projeto entity = new Projeto();
 
-            Contrato contrato = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Contrato contrato = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setTitulo(dto.getTitulo());
             entity.setDisciplina(dto.getDisciplina());
             entity.setStatusGeral(dto.getStatusGeral());
@@ -46,7 +46,7 @@ public class ProjetoService {
             dto.setId(savedEntity.getId());
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar projeto.", e);
+            throw new RuntimeException("Erro ao criar projeto." + e.getMessage());
         }
     }
 

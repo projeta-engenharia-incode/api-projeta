@@ -36,5 +36,5 @@ public class EntregasCiclo {
     private BigDecimal valorCobrado;
 
     @Column(name = "status_cobranca", length = 40)
-    private String statusCobranca;
+    private StatusCobranca statusCobranca;
 }

@@ -32,7 +32,7 @@ public class DocumentoController {
 
     @PostMapping("/create")
     @Operation(summary = "Cria um novo documento", description = "Cria um documento e retorna os dados do documento criado")
-    public ResponseEntity<?> criarDocumento(@Valid @RequestBody DocumentosDTO dto) {
+    public ResponseEntity<?> criarDocumento( @RequestBody DocumentosDTO dto) {
         try {
             DocumentosDTO createdDto = documentosService.criarDocumento(dto);
             return new ResponseEntity<>(createdDto, HttpStatus.CREATED);

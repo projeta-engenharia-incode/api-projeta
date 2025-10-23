@@ -25,7 +25,7 @@ public class EmissoesDocumentosService {
         try {
             EmissoesDocumento entity = new EmissoesDocumento();
 
-            Documentos documentos = documentosRepository.findById(entity.getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Documentos documentos = documentosRepository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("ERRO"));
 
             entity.setDocumentos(documentos);
             entity.setFase(dto.getFase());
@@ -45,7 +45,7 @@ public class EmissoesDocumentosService {
             return dto;
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar emissão de documento.", e);
+            throw new RuntimeException("Erro ao salvar emissão de documento." + e.getMessage());
         }
     }
 

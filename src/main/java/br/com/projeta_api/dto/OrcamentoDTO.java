@@ -1,5 +1,6 @@
 package br.com.projeta_api.dto;
 
+import br.com.projeta_api.model.StatusOrcamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,8 @@ public class OrcamentoDTO {
     private Long id;
     private Long chamadoId;
     private String codigoOrcamento;
-    private String statusOrcamento;
-    private Long orcamentistaId;
+    private StatusOrcamento statusOrcamento;
+    private String orcamentista;
     private String nomeOrcamento;
     private boolean cronograma;
     private String centroDeCusto;

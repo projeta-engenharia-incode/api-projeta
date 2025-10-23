@@ -21,10 +21,10 @@ public class Documentos {
         @Column(name = "id")
         private Long id;
         @ManyToOne
-        @JoinColumn(name = "projeto_id", nullable = false)
+        @JoinColumn(name = "projeto_id")
         private Projeto projetoId;
         @ManyToOne
-        @JoinColumn(name = "ciclo_id", nullable = false)
+        @JoinColumn(name = "ciclo_id")
         private Ciclo cicloId;
         @Column(name = "codigo_doc", nullable = false, length = 60)
         private String codigoDoc;

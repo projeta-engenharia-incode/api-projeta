@@ -38,9 +38,9 @@ public class EntregasCicloService {
         try {
             EntregasCiclo entity = new EntregasCiclo();
 
-            Documentos doc = documentosRepository.findById(entity.getDocumento().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
 
-            Ciclo ciclo = cicloRepository.findById(entity.getCiclo().getId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
+            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(() -> new RuntimeException("Nenhum documento encontrado."));
             entity.setDocumento(doc);
             entity.setCiclo(ciclo);
             entity.setDataEntrega(dto.getDataEntrega());
@@ -52,7 +52,7 @@ public class EntregasCicloService {
             dto.setId(savedEntity.getId());
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar entrega do ciclo.", e);
+            throw new RuntimeException("Erro ao salvar entrega do ciclo." + e.getMessage());
         }
     }
 

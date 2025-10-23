@@ -29,12 +29,12 @@ public class ContratoService {
             entity.setValorTotal(dto.getValorTotal());
             entity.setRevisao(dto.getRevisao());
 
-            // Caso preContratoId seja fornecido, criar referência
-            if (dto.getPreContratoId() != null) {
-                PreContrato preContrato = new PreContrato();
-                preContrato.setId(dto.getPreContratoId());
-                entity.setPreContrato(preContrato);
-            }
+//            // Caso preContratoId seja fornecido, criar referência
+//            if (dto.getPreContratoId() != null) {
+//                PreContrato preContrato = new PreContrato();
+//                preContrato.setId(dto.getPreContratoId());
+//                entity.setPreContrato(preContrato);
+//            }
 
             entity.setCreatedAt(dto.getCreatedAt());
             entity.setUpdatedAt(dto.getUpdatedAt());

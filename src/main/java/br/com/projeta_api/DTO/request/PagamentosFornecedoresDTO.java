@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PagamentosFornecedoresDTO {
     private Long id;
-    private Long fornecedorId;   // apenas o ID do fornecedor
-    private Long documentoId;    // apenas o ID do documento
+    private Long fornecedorId;
+    private Long documentoId;
     private BigDecimal percentualPago;
     private BigDecimal valorPago;
     private LocalDateTime dataPagamento;

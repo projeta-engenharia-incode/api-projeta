@@ -28,8 +28,8 @@ public class PagamentosFornecedoresService {
         try {
             PagamentosFornecedores entity = new PagamentosFornecedores();
 
-            Fornecedores fornecedores = fornecedoresRepository.findById(entity.getFornecedores().getId()).orElse(null);
-            Documentos doc = documentosRepository.findById(entity.getDocumentos().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Fornecedores fornecedores = fornecedoresRepository.findById(dto.getFornecedorId()).orElse(null);
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setFornecedores(fornecedores);
             entity.setDocumentos(doc);
             entity.setPercentualPago(dto.getPercentualPago());
@@ -40,7 +40,7 @@ public class PagamentosFornecedoresService {
             dto.setId(saved.getId());
             return dto;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar pagamento do fornecedor.", e);
+            throw new RuntimeException("Erro ao salvar pagamento do fornecedor." + e.getMessage());
         }
     }
 

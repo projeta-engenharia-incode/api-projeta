@@ -27,7 +27,7 @@ public class CobrancasService {
         try {
             Cobrancas entity = new Cobrancas();
 
-            Ciclo ciclo = cicloRepository.findById(entity.getCiclo().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(() -> new RuntimeException("ERRO"));
 
             entity.setCliente(dto.getCliente());
             entity.setDataEmissao(dto.getDataEmissao());
@@ -40,7 +40,7 @@ public class CobrancasService {
             return dto;
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar cobrança.", e);
+            throw new RuntimeException("Erro ao criar cobrança." + e.getMessage());
         }
     }
 

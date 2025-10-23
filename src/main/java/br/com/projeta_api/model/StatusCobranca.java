@@ -1,5 +1,9 @@
 package br.com.projeta_api.model;
 
+
+import lombok.Getter;
+
+@Getter
 public enum StatusCobranca {
 
     PAGA("PAGA"),
@@ -7,9 +11,9 @@ public enum StatusCobranca {
     EMITIDA ("EMITIDA"),
     VENDIDA    ("VENDIDA");
 
-    private final String role;
+    private final String status;
 
-    StatusCobranca(String role) {
-        this.role = role;
+    StatusCobranca(String status) {
+        this.status = status;
     }
 }

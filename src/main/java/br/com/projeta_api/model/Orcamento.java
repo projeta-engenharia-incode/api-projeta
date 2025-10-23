@@ -26,12 +26,11 @@ public class Orcamento {
     @Column(name = "codigo_orcamento", length = 60)
     private String codigoOrcamento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_orcamento", length = 40)
-    private String statusOrcamento;
+    private StatusOrcamento statusOrcamento;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "orcamentista_id", referencedColumnName = "id")
-    private Usuario orcamentista;
+    private String orcamentista;
 
     @Column(name = "nome_orcamento", columnDefinition = "TEXT")
     private String nomeOrcamento;

@@ -1,5 +1,6 @@
 package br.com.projeta_api.dto;
 
+import br.com.projeta_api.model.StatusCobranca;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,5 @@ public class EntregasCicloDTO {
     private LocalDate dataEntrega;
     private BigDecimal percentualCobrado;
     private BigDecimal valorCobrado;
-    private String statusCobranca;
+    private StatusCobranca statusCobranca;
 }

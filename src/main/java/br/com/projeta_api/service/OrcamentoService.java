@@ -37,11 +37,12 @@ public class OrcamentoService {
         try {
             Orcamento entity = new Orcamento();
 
-            if (dto.getOrcamentistaId() != null) {
-                var orcamentista = usuarioRepository.findById(dto.getOrcamentistaId())
-                        .orElseThrow(() -> new RuntimeException("Orcamentista não encontrado."));
-                entity.setOrcamentista(orcamentista);
-            }
+//            if (dto.getOrcamentistaId() != null) {
+//                var orcamentista = usuarioRepository.findById(dto.getOrcamentistaId())
+//                        .orElseThrow(() -> new RuntimeException("Orcamentista não encontrado."));
+//                entity.setOrcamentista(orcamentista);
+//            }
+            entity.setOrcamentista(dto.getOrcamentista());
 
             if (dto.getChamadoId() != null) {
                 var chamado = chamadoRepository.findById(dto.getChamadoId())
@@ -79,11 +80,7 @@ public class OrcamentoService {
         Orcamento entity = orcamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Orçamento não encontrado com ID: " + id));
 
-        if (dto.getOrcamentistaId() != null) {
-            var orcamentista = usuarioRepository.findById(dto.getOrcamentistaId())
-                    .orElseThrow(() -> new RuntimeException("Orcamentista não encontrado."));
-            entity.setOrcamentista(orcamentista);
-        }
+
 
         if (dto.getChamadoId() != null) {
             var chamado = chamadoRepository.findById(dto.getChamadoId())
@@ -91,6 +88,7 @@ public class OrcamentoService {
             entity.setChamados(chamado);
         }
 
+        entity.setOrcamentista(dto.getOrcamentista());
         entity.setCodigoOrcamento(dto.getCodigoOrcamento());
         entity.setStatusOrcamento(dto.getStatusOrcamento());
         entity.setNomeOrcamento(dto.getNomeOrcamento());
@@ -121,7 +119,7 @@ public class OrcamentoService {
         OrcamentoDTO dto = new OrcamentoDTO();
         dto.setId(entity.getId());
         dto.setChamadoId(entity.getChamados() != null ? entity.getChamados().getId() : null);
-        dto.setOrcamentistaId(entity.getOrcamentista() != null ? entity.getOrcamentista().getId() : null);
+        dto.setOrcamentista(entity.getOrcamentista());
         dto.setCodigoOrcamento(entity.getCodigoOrcamento());
         dto.setStatusOrcamento(entity.getStatusOrcamento());
         dto.setNomeOrcamento(entity.getNomeOrcamento());

@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UsoRecursosDTO {
     private Long id;
-    private Long recursoId;     // id do recurso
-    private Long documentoId;   // id do documento
+    private Long recursoId;
+    private Long documentoId;
     private Integer quantidadeUsada;
     private LocalDateTime dataUso;
 }

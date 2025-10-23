@@ -38,7 +38,7 @@ public class EmissoesDocumento {
     private Double perc_revisao;
     @Column(name = "equivalente_revisado")
     private Double equivalente_revisado;
-    @Column(name = "ordm_emissao", length = 11)
+    @Column(name = "ordem_emissao", length = 11)
     private Integer ordem_emissao;
     @Column(name = "ultima_emissao")
     private Boolean ultima_emissao;

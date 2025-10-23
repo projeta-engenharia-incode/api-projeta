@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class PrecosUnitariosDTO {
     private Long id;
-    private Long contratoId;  // apenas o ID do contrato
+    private Long contratoId;
     private String descricao;
     private String formato;
     private Integer quantidade;

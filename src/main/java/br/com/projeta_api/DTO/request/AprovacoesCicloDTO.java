@@ -1,5 +1,6 @@
 package br.com.projeta_api.DTO.request;
 
+import br.com.projeta_api.model.StatusAprovacoesCiclo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ public class AprovacoesCicloDTO {
     private Long cicloId;
     private LocalDateTime dataAprovacao;
     private String autorizadoPor;
-    private String statusAprovacao;
+    private String origem;
+    private StatusAprovacoesCiclo statusAprovacao;
     private String observacoes;
 
 }

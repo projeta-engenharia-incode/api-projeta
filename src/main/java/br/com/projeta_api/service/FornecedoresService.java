@@ -25,14 +25,15 @@ public class FornecedoresService {
     public FornecedoresDTO criarFornecedor(FornecedoresDTO fornecedoresDTO) {
         try {
             Fornecedores entity = new Fornecedores();
-            Contrato contrato = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Contrato contrato = contratoRepository.findById(fornecedoresDTO.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setContrato(contrato);
             entity.setNome(fornecedoresDTO.getNome());
             entity.setTipo(fornecedoresDTO.getTipo());
             fornecedoresRepository.save(entity);
+            fornecedoresDTO.setId(entity.getId());
             return fornecedoresDTO;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar fornecedor.", e);
+            throw new RuntimeException("Erro ao criar fornecedor." + e.getMessage());
         }
     }
 
