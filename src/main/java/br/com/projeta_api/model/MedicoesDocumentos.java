@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,10 +20,12 @@ public class MedicoesDocumentos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "documento_id", nullable = false, referencedColumnName = "id")
     private Documentos documento;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ciclo_id", nullable = false, referencedColumnName = "id")
     private Ciclo ciclo;

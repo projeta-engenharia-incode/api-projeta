@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusEmissoesDocumentos;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,8 +31,9 @@ public class EmissoesDocumento {
     private LocalDateTime data_emissao;
     @Column(name = "data_entrega")
     private LocalDateTime data_entrega;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_retorno", length = 40)
-    private String status_retorno;
+    private StatusEmissoesDocumentos status_retorno;
     @Column(name = "data_retorno")
     private LocalDateTime data_retorno;
     @Column(name = "perc_revisao")

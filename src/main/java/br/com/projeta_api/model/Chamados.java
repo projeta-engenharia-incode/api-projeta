@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusChamados;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,10 @@ public class Chamados {
 
     @Column(name = "nome_projeto", nullable = false)
     private String nomeProjeto;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusChamados status;
 
     @Column(name = "codigo_cliente", length = 50)
     private String codigoCliente;

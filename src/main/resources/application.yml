@@ -18,3 +18,15 @@ spring:
 server:
   servlet:
     context-path: /projeta-api
+
+
+
+template_api:
+  app:
+    jwtSecret: ${SECRET:bezKoderSecretKey}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

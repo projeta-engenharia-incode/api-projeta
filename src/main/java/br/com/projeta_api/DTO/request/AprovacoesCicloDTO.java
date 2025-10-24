@@ -1,6 +1,6 @@
 package br.com.projeta_api.DTO.request;
 
-import br.com.projeta_api.model.StatusAprovacoesCiclo;
+import br.com.projeta_api.model.enums.StatusAprovacoesCiclo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

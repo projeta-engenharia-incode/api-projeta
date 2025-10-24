@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusDocumentos;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,8 +39,9 @@ public class Documentos {
         private String categoria;
         @Column(columnDefinition = "text")
         private String descricao;
+        @Enumerated(EnumType.STRING)
         @Column(name = "status_documento", length = 40)
-        private String statusDocumento;
+        private StatusDocumentos statusDocumento;
         @Column(length = 40)
         private String etapa;
         @Column(length = 120)

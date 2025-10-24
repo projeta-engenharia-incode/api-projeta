@@ -25,7 +25,7 @@ public class EmissoesDocumentosService {
         try {
             EmissoesDocumento entity = new EmissoesDocumento();
 
-            Documentos documentos = documentosRepository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Documentos documentos = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
 
             entity.setDocumentos(documentos);
             entity.setFase(dto.getFase());
@@ -33,7 +33,7 @@ public class EmissoesDocumentosService {
             entity.setTipo_emissao(dto.getTipoEmissao());
             entity.setData_emissao(dto.getDataEmissao());
             entity.setData_entrega(dto.getDataEntrega());
-            entity.setStatus_retorno(dto.getStatusRetorno());
+            entity.setStatus_retorno(dto.getStatus());
             entity.setData_retorno(dto.getDataRetorno());
             entity.setPerc_revisao(dto.getPercRevisao());
             entity.setEquivalente_revisado(dto.getEquivalenteRevisado());
@@ -110,7 +110,7 @@ public class EmissoesDocumentosService {
         entity.setTipo_emissao(dto.getTipoEmissao());
         entity.setData_emissao(dto.getDataEmissao());
         entity.setData_entrega(dto.getDataEntrega());
-        entity.setStatus_retorno(dto.getStatusRetorno());
+        entity.setStatus_retorno(dto.getStatus());
         entity.setData_retorno(dto.getDataRetorno());
         entity.setPerc_revisao(dto.getPercRevisao());
         entity.setEquivalente_revisado(dto.getEquivalenteRevisado());

@@ -4,16 +4,16 @@ package br.com.projeta_api.model.enums;
 import lombok.Getter;
 
 @Getter
-public enum StatusCobranca {
+public enum StatusEntregaCiclo {
 
     PAGA("PAGA"),
-    CANCELADA   ("CANCELADA"),
-    EMITIDA ("EMITIDA"),
-    VENDIDA    ("VENDIDA");
+    PENDENTE("PENDENTE");
+
 
     private final String status;
 
-    StatusCobranca(String status) {
+    StatusEntregaCiclo(String status) {
         this.status = status;
     }
+
 }

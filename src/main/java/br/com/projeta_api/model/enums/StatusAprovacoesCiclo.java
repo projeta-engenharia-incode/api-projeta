@@ -1,4 +1,4 @@
-package br.com.projeta_api.model;
+package br.com.projeta_api.model.enums;
 
 import lombok.Getter;
 

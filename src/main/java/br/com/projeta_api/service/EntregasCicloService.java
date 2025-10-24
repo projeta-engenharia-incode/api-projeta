@@ -46,7 +46,7 @@ public class EntregasCicloService {
             entity.setDataEntrega(dto.getDataEntrega());
             entity.setPercentualCobrado(dto.getPercentualCobrado());
             entity.setValorCobrado(dto.getValorCobrado());
-            entity.setStatusCobranca(dto.getStatusCobranca());
+            entity.setStatus(dto.getStatus());
 
             EntregasCiclo savedEntity = entregasCicloRepository.save(entity);
             dto.setId(savedEntity.getId());
@@ -70,7 +70,7 @@ public class EntregasCicloService {
             entity.setDataEntrega(dto.getDataEntrega());
             entity.setPercentualCobrado(dto.getPercentualCobrado());
             entity.setValorCobrado(dto.getValorCobrado());
-            entity.setStatusCobranca(dto.getStatusCobranca());
+            entity.setStatus(dto.getStatus());
 
             entregasCicloRepository.save(entity);
             return dto;

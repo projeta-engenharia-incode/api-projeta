@@ -1,18 +1,15 @@
 package br.com.projeta_api.dto;
 
-import br.com.projeta_api.model.enums.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDTO {
+@Data
+public class LoginRequest {
 
-    private Long id;
-    private String nome;
     private String email;
-    private String cargo;
-    private Role role;
+    private String senha;
 }

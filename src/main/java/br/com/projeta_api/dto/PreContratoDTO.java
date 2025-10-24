@@ -1,5 +1,6 @@
 package br.com.projeta_api.dto;
 
+import br.com.projeta_api.model.enums.StatusOrcamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class PreContratoDTO {
     private Long chamadoId;
     private String titulo;
     private String descricao;
-    private String status;
+    private StatusOrcamento status;
     private BigDecimal valorEstimado;
     private LocalDate dataProposta;
     private LocalDate dataValidade;

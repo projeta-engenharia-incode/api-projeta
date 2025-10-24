@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +16,13 @@ public class RejeicoesRevisao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "tipos_rejeicoes_id")
     private TiposRejeicoes tiposRejeicoes;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_revisoes")
     private RevisoesDoc revisoesDoc;

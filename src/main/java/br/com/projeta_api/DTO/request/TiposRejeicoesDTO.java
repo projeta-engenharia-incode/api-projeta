@@ -14,5 +14,5 @@ public class TiposRejeicoesDTO {
     private Long id;
     private String codigo;
     private String descricao;
-    private List<Long> rejeicoesIds;
+    //private List<Long> rejeicoesIds;
 }

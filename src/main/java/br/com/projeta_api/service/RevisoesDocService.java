@@ -5,6 +5,8 @@ import br.com.projeta_api.model.RevisoesDoc;
 import br.com.projeta_api.repository.RevisoesDocRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RevisoesDocService {
 
@@ -21,7 +23,7 @@ public class RevisoesDocService {
             entity.setResponsavel(dto.getResponsavel());
             entity.setDataEnvio(dto.getDataEnvio());
             entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());
-            entity.setStatusRevisao(dto.getStatusRevisao());
+            entity.setStatus(dto.getStatus());
             entity.setObservacoes(dto.getObservacoes());
 
             RevisoesDoc saved = revisoesDocRepository.save(entity);
@@ -32,40 +34,40 @@ public class RevisoesDocService {
         }
     }
 
-//    public List<RevisoesDocDTO> listarRevisoesDocs() {
-//        List<RevisoesDoc> entities = revisoesDocRepository.findAll();
-//        if (entities.isEmpty()) {
-//            throw new RuntimeException("Nenhuma revisão de documento encontrada.");
-//        }
-//
-//        return entities.stream()
-//                .map(doc -> new RevisoesDocDTO(
-//                        doc.getId(),
-//                        doc.getRevisao(),
-//                        doc.getResponsavel(),
-//                        doc.getDataEnvio(),
-//                        doc.getDataRespostaCiclo(),
-//                        doc.getStatusRevisao(),
-//                        doc.getObservacoes(),
-//                        doc.getRejeicoes()
-//                ))
-//                .toList();
-//    }
+    public List<RevisoesDocDTO> listarRevisoesDocs() {
+        List<RevisoesDoc> entities = revisoesDocRepository.findAll();
+        if (entities.isEmpty()) {
+            throw new RuntimeException("Nenhuma revisão de documento encontrada.");
+        }
 
-//    public RevisoesDocDTO getRevisaoDocById(Long id) {
-//        RevisoesDoc entity = revisoesDocRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Revisão de documento não encontrada com ID: " + id));
-//
-//        return new RevisoesDocDTO(
-//                entity.getId(),
-//                entity.getRevisao(),
-//                entity.getResponsavel(),
-//                entity.getDataEnvio(),
-//                entity.getDataRespostaCiclo(),
-//                entity.getStatusRevisao(),
-//                entity.getObservacoes()
-//        );
-//    }
+        return entities.stream()
+                .map(doc -> new RevisoesDocDTO(
+                        doc.getId(),
+                        doc.getRevisao(),
+                        doc.getResponsavel(),
+                        doc.getDataEnvio(),
+                        doc.getDataRespostaCiclo(),
+                        doc.getStatus(),
+                        doc.getObservacoes()
+                        //doc.getRejeicoes()
+                ))
+                .toList();
+    }
+
+    public RevisoesDocDTO getRevisaoDocById(Long id) {
+        RevisoesDoc entity = revisoesDocRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Revisão de documento não encontrada com ID: " + id));
+
+        return new RevisoesDocDTO(
+                entity.getId(),
+                entity.getRevisao(),
+                entity.getResponsavel(),
+                entity.getDataEnvio(),
+                entity.getDataRespostaCiclo(),
+                entity.getStatus(),
+                entity.getObservacoes()
+        );
+    }
 
     public RevisoesDocDTO updateRevisaoDoc(Long id, RevisoesDocDTO dto) {
         RevisoesDoc entity = revisoesDocRepository.findById(id)
@@ -75,7 +77,7 @@ public class RevisoesDocService {
         entity.setResponsavel(dto.getResponsavel());
         entity.setDataEnvio(dto.getDataEnvio());
         entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());
-        entity.setStatusRevisao(dto.getStatusRevisao());
+        entity.setStatus(dto.getStatus());
         entity.setObservacoes(dto.getObservacoes());
 
         RevisoesDoc updated = revisoesDocRepository.save(entity);

@@ -1,5 +1,6 @@
 package br.com.projeta_api.DTO.request;
 
+import br.com.projeta_api.model.enums.StatusDocumentos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class DocumentosDTO {
     private String formato;
     private String categoria;
     private String descricao;
-    private String statusDocumento;
+    private StatusDocumentos statusDocumento;
     private String etapa;
     private String responsavel;
     private String auxiliar;

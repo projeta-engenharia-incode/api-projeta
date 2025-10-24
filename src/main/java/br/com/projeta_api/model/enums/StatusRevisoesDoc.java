@@ -4,17 +4,15 @@ package br.com.projeta_api.model.enums;
 import lombok.Getter;
 
 @Getter
-public enum StatusOrcamento {
+public enum StatusRevisoesDoc {
 
     APROVADO("APROVADO"),
-    AGUARDANDO_APROVACAO("AGUARDANDO_APROVACAO"),
-    EM_ELABORACAO("EM_ELABORACAO"),
-    ENVIADO    ("ENVIADO"),
+    EM_ANALISE("EM_ANALISE"),
     REJEITADO("REJEITADO");
 
     private final String status;
 
-    StatusOrcamento(String status) {
+    StatusRevisoesDoc(String status) {
         this.status = status;
     }
 }

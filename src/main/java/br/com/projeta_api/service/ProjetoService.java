@@ -38,7 +38,7 @@ public class ProjetoService {
             Contrato contrato = contratoRepository.findById(dto.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setTitulo(dto.getTitulo());
             entity.setDisciplina(dto.getDisciplina());
-            entity.setStatusGeral(dto.getStatusGeral());
+            entity.setStatus(dto.getStatus());
             entity.setContrato(contrato);
             entity.setUpdatedAt(dto.getUpdatedAt());
 
@@ -59,7 +59,7 @@ public class ProjetoService {
             Contrato contratoUp = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setTitulo(dto.getTitulo());
             entity.setDisciplina(dto.getDisciplina());
-            entity.setStatusGeral(dto.getStatusGeral());
+            entity.setStatus(dto.getStatus());
             entity.setContrato(contratoUp);
             entity.setUpdatedAt(dto.getUpdatedAt());
 

@@ -1,5 +1,7 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusProjeto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +19,7 @@ public class Projeto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "contrato_id", nullable = false)
     private Contrato contrato;
@@ -27,8 +30,9 @@ public class Projeto {
     @Column(name = "disciplina", length = 120, nullable = false)
     private String disciplina;
 
-    @Column (name = "status-geral", length = 40, nullable = false)
-    private String statusGeral;
+    @Enumerated(EnumType.STRING)
+    @Column (name = "status", length = 40, nullable = false)
+    private StatusProjeto status;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

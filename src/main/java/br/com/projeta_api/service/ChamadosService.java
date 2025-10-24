@@ -27,6 +27,7 @@ public class ChamadosService {
             Chamados entity = new Chamados();
             entity.setCoordenador(dto.getCoordenador());
             entity.setAtendido(dto.getAtendido());
+            entity.setStatus(dto.getStatus());
             entity.setNomeProjeto(dto.getNomeProjeto());
             entity.setCodigoCliente(dto.getCodigoCliente());
 
@@ -57,6 +58,7 @@ public class ChamadosService {
                         chamado.getId(),
                         chamado.getCoordenador(),
                         chamado.getAtendido(),
+                        chamado.getStatus(),
                         chamado.getNomeProjeto(),
                         chamado.getCodigoCliente(),
                         chamado.getContrato().getId(),
@@ -77,6 +79,7 @@ public class ChamadosService {
                 entity.getId(),
                 entity.getCoordenador(),
                 entity.getAtendido(),
+                entity.getStatus(),
                 entity.getNomeProjeto(),
                 entity.getCodigoCliente(),
                 entity.getContrato().getId(),
@@ -98,6 +101,7 @@ public class ChamadosService {
         entity.setAtendido(dto.getAtendido());
         entity.setNomeProjeto(dto.getNomeProjeto());
         entity.setCodigoCliente(dto.getCodigoCliente());
+        entity.setStatus(dto.getStatus());
         entity.setContrato(contratoUp);
         entity.setDataAbertura(dto.getDataAbertura());
         entity.setDataAgendamento(dto.getDataAgendamento());

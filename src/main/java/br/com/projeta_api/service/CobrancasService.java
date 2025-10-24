@@ -57,6 +57,7 @@ public class CobrancasService {
                         c.getCiclo().getId(),
                         c.getCliente(),
                         c.getDataEmissao(),
+                        c.getStatusCobranca(),
                         c.getValorTotal(),
                         c.getStatusCobranca()
 
@@ -73,6 +74,7 @@ public class CobrancasService {
                 entity.getCiclo().getId(),
                 entity.getCliente(),
                 entity.getDataEmissao(),
+                entity.getStatusCobranca(),
                 entity.getValorTotal(),
                 entity.getStatusCobranca()
 

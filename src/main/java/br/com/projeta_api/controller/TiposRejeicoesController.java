@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tipos-rejeicoes")
 @Tag(name = "Tipos de Rejeições", description = "Endpoints para gerenciar tipos de rejeições")
@@ -30,6 +32,18 @@ public class TiposRejeicoesController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TiposRejeicoesDTO>> listarTiposRejeicoes() {
+        List<TiposRejeicoesDTO> lista = tiposRejeicoesService.listarTiposRejeicoes();
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TiposRejeicoesDTO> getTipoRejeicaoById(@PathVariable Long id) {
+        TiposRejeicoesDTO dto = tiposRejeicoesService.getTipoRejeicaoById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}")

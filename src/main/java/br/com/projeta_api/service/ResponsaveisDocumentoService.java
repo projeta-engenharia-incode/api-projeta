@@ -44,6 +44,7 @@ public class ResponsaveisDocumentoService {
             Usuario usuario = usuarioRepository.findById(entity.getUsuario().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setDocumento(doc);
             entity.setUsuario(usuario);
+            entity.setStatus(dto.getStatus());
             entity.setNome(dto.getNome());
             entity.setFuncao(dto.getFuncao());
 
@@ -68,6 +69,7 @@ public class ResponsaveisDocumentoService {
             entity.setUsuario(usuarioUp);
             entity.setNome(dto.getNome());
             entity.setFuncao(dto.getFuncao());
+            entity.setStatus(dto.getStatus());
 
             ResponsaveisDocumento updated = responsaveisDocumentoRepository.save(entity);
 

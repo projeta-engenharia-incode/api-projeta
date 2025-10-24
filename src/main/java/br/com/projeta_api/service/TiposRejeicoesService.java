@@ -5,6 +5,8 @@ import br.com.projeta_api.model.TiposRejeicoes;
 import br.com.projeta_api.repository.TiposRejeicoesRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TiposRejeicoesService {
 
@@ -28,31 +30,31 @@ public class TiposRejeicoesService {
         }
     }
 
-//    public List<TiposRejeicoesDTO> listarTiposRejeicoes() {
-//        List<TiposRejeicoes> entities = tiposRejeicoesRepository.findAll();
-//        if (entities.isEmpty()) {
-//            throw new RuntimeException("Nenhum tipo de rejeição encontrado.");
-//        }
-//
-//        return entities.stream()
-//                .map(tipo -> new TiposRejeicoesDTO(
-//                        tipo.getId(),
-//                        tipo.getCodigo(),
-//                        tipo.getDescricao()
-//                ))
-//                .toList();
-//    }
+    public List<TiposRejeicoesDTO> listarTiposRejeicoes() {
+        List<TiposRejeicoes> entities = tiposRejeicoesRepository.findAll();
+        if (entities.isEmpty()) {
+            throw new RuntimeException("Nenhum tipo de rejeição encontrado.");
+        }
 
-//    public TiposRejeicoesDTO getTipoRejeicaoById(Long id) {
-//        TiposRejeicoes entity = tiposRejeicoesRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Tipo de rejeição não encontrado com ID: " + id));
-//
-//        return new TiposRejeicoesDTO(
-//                entity.getId(),
-//                entity.getCodigo(),
-//                entity.getDescricao()
-//        );
-//    }
+        return entities.stream()
+                .map(tipo -> new TiposRejeicoesDTO(
+                        tipo.getId(),
+                        tipo.getCodigo(),
+                        tipo.getDescricao()
+                ))
+                .toList();
+    }
+
+    public TiposRejeicoesDTO getTipoRejeicaoById(Long id) {
+        TiposRejeicoes entity = tiposRejeicoesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tipo de rejeição não encontrado com ID: " + id));
+
+        return new TiposRejeicoesDTO(
+                entity.getId(),
+                entity.getCodigo(),
+                entity.getDescricao()
+        );
+    }
 
     public TiposRejeicoesDTO updateTipoRejeicao(Long id, TiposRejeicoesDTO dto) {
         TiposRejeicoes entity = tiposRejeicoesRepository.findById(id)

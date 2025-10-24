@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusRevisoesDoc;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,8 @@ public class RevisoesDoc {
     private LocalDateTime dataEnvio;
     @Column(name = "data_resposta_ciclo")
     private LocalDateTime dataRespostaCiclo;
-    @Column(name = "status_revisao", length = 40)
-    private String statusRevisao;
+    @Column(name = "status", length = 40)
+    private StatusRevisoesDoc status;
     @Column(name = "observacoes", columnDefinition = "TEXT")
     private String observacoes;
 

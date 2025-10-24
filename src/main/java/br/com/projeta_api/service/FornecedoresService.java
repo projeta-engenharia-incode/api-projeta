@@ -66,14 +66,14 @@ public class FornecedoresService {
             Fornecedores entity = fornecedoresRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com o ID: " + id));
 
-            Contrato contratoUp = contratoRepository.findById(entity.getContrato().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
+            Contrato contratoUp = contratoRepository.findById(fornecedoresDTO.getContratoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             entity.setContrato(contratoUp);
             entity.setNome(fornecedoresDTO.getNome());
             entity.setTipo(fornecedoresDTO.getTipo());
             fornecedoresRepository.save(entity);
             return fornecedoresDTO;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao atualizar fornecedor.", e);
+            throw new RuntimeException("Erro ao atualizar fornecedor." + e.getMessage());
         }
     }
 

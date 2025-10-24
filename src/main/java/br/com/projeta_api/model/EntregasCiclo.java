@@ -1,5 +1,7 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusEntregaCiclo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,10 +20,12 @@ public class EntregasCiclo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "documento_id", nullable = false)
     private Documentos documento;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ciclo_id", nullable = false)
     private Ciclo ciclo;
@@ -35,6 +39,7 @@ public class EntregasCiclo {
     @Column(name = "valor_cobrado", precision = 14, scale = 2)
     private BigDecimal valorCobrado;
 
-    @Column(name = "status_cobranca", length = 40)
-    private StatusCobranca statusCobranca;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 40)
+    private StatusEntregaCiclo status;
 }

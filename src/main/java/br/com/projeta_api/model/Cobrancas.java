@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusCobranca;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

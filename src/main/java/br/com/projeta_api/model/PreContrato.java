@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusOrcamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,8 +33,9 @@ public class PreContrato {
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 40)
-    private String status;
+    private StatusOrcamento status;
 
     @Column(name = "valor_estimado", precision = 14, scale = 2)
     private BigDecimal valorEstimado;

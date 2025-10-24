@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/revisoes-doc")
 @Tag(name = "Revisões de Documentos", description = "Endpoints para gerenciar revisões de documentos")
@@ -30,6 +32,18 @@ public class RevisoesDocController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RevisoesDocDTO>> listarRevisoesDocs() {
+        List<RevisoesDocDTO> lista = revisoesDocService.listarRevisoesDocs();
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RevisoesDocDTO> getRevisaoDocById(@PathVariable Long id) {
+        RevisoesDocDTO dto = revisoesDocService.getRevisaoDocById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}")

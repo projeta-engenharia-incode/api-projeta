@@ -1,5 +1,6 @@
 package br.com.projeta_api.model;
 
+import br.com.projeta_api.model.enums.StatusResponsaveisDocumentos;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,10 @@ public class ResponsaveisDocumento {
 
     @Column(name = "funcao", length = 60)
     private String funcao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusResponsaveisDocumentos status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")

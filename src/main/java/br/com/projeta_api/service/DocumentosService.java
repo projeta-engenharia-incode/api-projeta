@@ -29,10 +29,10 @@ public class DocumentosService {
     public DocumentosDTO criarDocumento(DocumentosDTO dto) {
         try {
             Documentos entity = new Documentos();
-//            Projeto projeto = projetoRepository.findById(dto.getProjetoId()).orElseThrow(()-> new RuntimeException("ERRO"));
-//            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(()-> new RuntimeException("ERRO"));
-//            entity.setProjetoId(projeto);
-//            entity.setCicloId(ciclo);
+            Projeto projeto = projetoRepository.findById(dto.getProjetoId()).orElseThrow(()-> new RuntimeException("ERRO"));
+            Ciclo ciclo = cicloRepository.findById(dto.getCicloId()).orElseThrow(()-> new RuntimeException("ERRO"));
+            entity.setProjetoId(projeto);
+            entity.setCicloId(ciclo);
             entity.setCodigoDoc(dto.getCodigoDoc());
             entity.setTituloSecundario(dto.getTituloSecundario());
             entity.setTipo(dto.getTipo());

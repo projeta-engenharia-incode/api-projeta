@@ -1,6 +1,6 @@
 package br.com.projeta_api.dto;
 
-import br.com.projeta_api.model.StatusOrcamento;
+import br.com.projeta_api.model.enums.StatusOrcamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

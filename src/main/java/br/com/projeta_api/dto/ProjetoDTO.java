@@ -1,5 +1,6 @@
 package br.com.projeta_api.dto;
 
+import br.com.projeta_api.model.enums.StatusProjeto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class ProjetoDTO {
     private Long contratoId;
     private String titulo;
     private String disciplina;
-    private String statusGeral;
+    private StatusProjeto status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

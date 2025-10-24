@@ -1,6 +1,6 @@
 package br.com.projeta_api.dto;
 
-import br.com.projeta_api.model.StatusCobranca;
+import br.com.projeta_api.model.enums.StatusCobranca;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,7 @@ public class CobrancasDTO {
     private Long cicloId;
     private String cliente;
     private LocalDate dataEmissao;
+    private StatusCobranca status;
     private BigDecimal valorTotal;
     private StatusCobranca statusCobranca;
 }
