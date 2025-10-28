@@ -25,10 +25,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-    public SecurityFilter(UsuarioRepository usuarioRepository,  TokenService tokenService) {
+    public SecurityFilter(UsuarioRepository usuarioRepository, TokenService tokenService) {
         this.usuarioRepository = usuarioRepository;
         this.tokenService = tokenService;
     }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -39,30 +40,29 @@ public class SecurityFilter extends OncePerRequestFilter {
             if (token != null) {
                 String email = tokenService.validateToken(token);
 
-                System.out.println("Email extraído do token: " + email);
+                if (email != null) {
+                    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
 
-                Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
-                if (usuarioOpt.isEmpty()) {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Usuário não encontrado.");
-                    return;
+                    if (usuarioOpt.isPresent()) {
+                        Usuario usuario = usuarioOpt.get();
+
+                        var authentication = new UsernamePasswordAuthenticationToken(
+                                usuario, null, usuario.getAuthorities()
+                        );
+
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
-
-                Usuario usuario = usuarioOpt.get();
-                var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-                System.out.println("auth: " + usuario.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }else {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
             filterChain.doFilter(request, response);
+
         } catch (JWTDecodeException e) {
             System.out.println("Erro ao decodificar o token: " + e.getMessage());
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT inválido.");
+            filterChain.doFilter(request, response);
         } catch (Exception e) {
             System.out.println("Erro de autenticação: " + e.getMessage());
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Erro de autenticação.");
+            filterChain.doFilter(request, response);
         }
     }
 
@@ -73,9 +73,17 @@ public class SecurityFilter extends OncePerRequestFilter {
         return authHeader.replace("Bearer ", "");
     }
 
-//    @Override
-//    protected boolean shouldNotFilter(HttpServletRequest request) {
-//        String path = request.getRequestURI();
-//        return path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui") || path.startsWith("/swagger-ui.html") || path.startsWith("/webjars");
-//    }
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/swagger-ui.html")
+                || path.startsWith("/webjars")
+                || path.startsWith("/projeta-api/v3/api-docs")
+                || path.startsWith("/projeta-api/swagger-ui")
+                || path.startsWith("/projeta-api/swagger-ui.html")
+                || path.endsWith(".css")
+                || path.endsWith(".js");
+    }
 }

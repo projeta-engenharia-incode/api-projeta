@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,6 +51,10 @@ public class Chamados {
 
     @Column(name = "data_visita")
     private LocalDate dataVisita;
+
+    @OneToMany(mappedBy = "chamado", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PreContrato> preContratos = new ArrayList<>();
+
 
     @Column(name = "data_estimativa")
     private LocalDateTime dataEstimativa;

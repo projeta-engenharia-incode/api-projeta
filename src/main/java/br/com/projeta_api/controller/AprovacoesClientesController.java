@@ -1,7 +1,7 @@
 package br.com.projeta_api.controller;
 
-import br.com.projeta_api.DTO.request.AprovacoesCicloDTO;
-import br.com.projeta_api.service.AprovacoesCicloService;
+import br.com.projeta_api.DTO.request.AprovacoesClientesDTO;
+import br.com.projeta_api.service.AprovacoesClientesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("aprovacoes-ciclo")
+@RequestMapping("aprovacoes-clientes")
 @Tag(name = "Aprovações de Ciclo", description = "Endpoints para gerenciar aprovações de ciclo")
-public class AprovacoesCicloController {
+public class AprovacoesClientesController {
 
-    private final AprovacoesCicloService aprovacoesCicloService;
+    private final AprovacoesClientesService aprovacoesClientesService;
 
-    public AprovacoesCicloController(AprovacoesCicloService aprovacoesCicloService) {
-        this.aprovacoesCicloService = aprovacoesCicloService;
+    public AprovacoesClientesController(AprovacoesClientesService aprovacoesClientesService) {
+        this.aprovacoesClientesService = aprovacoesClientesService;
     }
 
     @GetMapping
     @Operation(summary = "Lista todas as aprovações de ciclo", description = "Retorna todas as aprovações de ciclo cadastradas")
     public ResponseEntity<?> listarAprovacoesCiclos() {
         try {
-            return new ResponseEntity<>(aprovacoesCicloService.listarAprovacoesCiclos(), HttpStatus.OK);
+            return new ResponseEntity<>(aprovacoesClientesService.listarAprovacoesCiclos(), HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -33,9 +33,9 @@ public class AprovacoesCicloController {
 
     @PostMapping("/create")
     @Operation(summary = "Cria uma nova aprovação de ciclo", description = "Cria uma aprovação de ciclo e retorna o DTO criado")
-    public ResponseEntity<?> salvarAprovacaoCiclo(@Valid @RequestBody AprovacoesCicloDTO dto) {
+    public ResponseEntity<?> salvarAprovacaoCiclo(@Valid @RequestBody AprovacoesClientesDTO dto) {
         try {
-            AprovacoesCicloDTO createdDto = aprovacoesCicloService.saveAprovacaoCiclo(dto);
+            AprovacoesClientesDTO createdDto = aprovacoesClientesService.saveAprovacaoCiclo(dto);
             return new ResponseEntity<>(createdDto, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -46,7 +46,7 @@ public class AprovacoesCicloController {
     @Operation(summary = "Busca uma aprovação de ciclo pelo ID", description = "Retorna os detalhes de uma aprovação de ciclo específica")
     public ResponseEntity<?> getAprovacaoCicloById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(aprovacoesCicloService.getAprovacaoCicloById(id), HttpStatus.OK);
+            return new ResponseEntity<>(aprovacoesClientesService.getAprovacaoCicloById(id), HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -54,9 +54,9 @@ public class AprovacoesCicloController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza uma aprovação de ciclo pelo ID", description = "Atualiza os dados de uma aprovação de ciclo existente")
-    public ResponseEntity<?> atualizarAprovacaoCiclo(@PathVariable Long id, @Valid @RequestBody AprovacoesCicloDTO dto) {
+    public ResponseEntity<?> atualizarAprovacaoCiclo(@PathVariable Long id, @Valid @RequestBody AprovacoesClientesDTO dto) {
         try {
-            AprovacoesCicloDTO updatedDto = aprovacoesCicloService.updateAprovacaoCiclo(id, dto);
+            AprovacoesClientesDTO updatedDto = aprovacoesClientesService.updateAprovacaoCiclo(id, dto);
             return new ResponseEntity<>(updatedDto, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -67,7 +67,7 @@ public class AprovacoesCicloController {
     @Operation(summary = "Deleta uma aprovação de ciclo pelo ID", description = "Remove uma aprovação de ciclo específica")
     public ResponseEntity<?> deletarAprovacaoCiclo(@PathVariable Long id) {
         try {
-            aprovacoesCicloService.deleteAprovacaoCiclo(id);
+            aprovacoesClientesService.deleteAprovacaoCiclo(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

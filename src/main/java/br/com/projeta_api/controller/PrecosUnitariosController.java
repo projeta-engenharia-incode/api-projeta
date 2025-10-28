@@ -2,6 +2,7 @@ package br.com.projeta_api.controller;
 
 
 import br.com.projeta_api.DTO.request.PrecosUnitariosDTO;
+import br.com.projeta_api.model.PrecosUnitarios;
 import br.com.projeta_api.service.PrecosUnitariosService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,6 +10,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/precos-unitarios")
@@ -73,5 +76,18 @@ public class PrecosUnitariosController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/itens/{itemId}/reajuste")
+    public ResponseEntity<PrecosUnitarios> reajustarItem(
+            @PathVariable Long itemId,
+            @RequestParam BigDecimal percentual) {
+
+        PrecosUnitarios item = precosUnitariosService.aplicarReajusteEmItem(
+                precosUnitariosService.buscarPorId(itemId),
+                percentual
+        );
+
+        return ResponseEntity.ok(item);
     }
 }

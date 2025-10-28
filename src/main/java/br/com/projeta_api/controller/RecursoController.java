@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/recurso")
 @Tag(name = "Recursos", description = "Endpoints para gerenciar recursos")
-public class RecursoController {
+public class    RecursoController {
 
     private final RecursoService recursoService;
 

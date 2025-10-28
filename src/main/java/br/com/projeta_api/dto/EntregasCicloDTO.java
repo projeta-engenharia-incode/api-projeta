@@ -1,6 +1,5 @@
 package br.com.projeta_api.dto;
 
-import br.com.projeta_api.model.enums.StatusCobranca;
 import br.com.projeta_api.model.enums.StatusEntregaCiclo;
 import lombok.AllArgsConstructor;
 import lombok.Data;

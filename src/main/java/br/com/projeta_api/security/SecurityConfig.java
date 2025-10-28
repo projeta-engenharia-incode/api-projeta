@@ -39,7 +39,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
 
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/index.html",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+
+                                "/projeta-api/v3/api-docs/**",
+                                "/projeta-api/swagger-ui/**",
+                                "/projeta-api/swagger-ui.html"
+                        ).permitAll()
 
 
                         .requestMatchers("/pagamentos-fornecedores").authenticated()

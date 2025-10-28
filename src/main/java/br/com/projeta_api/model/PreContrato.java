@@ -24,8 +24,9 @@ public class PreContrato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chamado_id")
-    private Long chamadoId;
+    @ManyToOne
+    @JoinColumn(name = "chamado_id", nullable = false)
+    private Chamados chamado;
 
     @Column(name = "titulo", length = 120, nullable = false)
     private String titulo;

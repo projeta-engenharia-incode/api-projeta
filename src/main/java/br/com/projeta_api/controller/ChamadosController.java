@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Chamados", description = "Endpoints para gerenciar chamados")
 public class ChamadosController {
 
+
+
     private final ChamadosService chamadosService;
 
     public ChamadosController(ChamadosService chamadosService) {

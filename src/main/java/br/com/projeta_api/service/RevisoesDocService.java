@@ -1,7 +1,9 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.DTO.request.RevisoesDocDTO;
+import br.com.projeta_api.model.Documentos;
 import br.com.projeta_api.model.RevisoesDoc;
+import br.com.projeta_api.repository.DocumentosRepository;
 import br.com.projeta_api.repository.RevisoesDocRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,20 @@ public class RevisoesDocService {
 
     private final RevisoesDocRepository revisoesDocRepository;
 
-    public RevisoesDocService(RevisoesDocRepository revisoesDocRepository) {
+    private final DocumentosRepository  documentosRepository;
+
+    public RevisoesDocService(RevisoesDocRepository revisoesDocRepository, DocumentosRepository documentosRepository) {
         this.revisoesDocRepository = revisoesDocRepository;
+        this.documentosRepository = documentosRepository;
     }
 
     public RevisoesDocDTO saveRevisaoDoc(RevisoesDocDTO dto) {
         try {
+
+            Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             RevisoesDoc entity = new RevisoesDoc();
             entity.setRevisao(dto.getRevisao());
+            entity.setDocumentos(doc);
             entity.setResponsavel(dto.getResponsavel());
             entity.setDataEnvio(dto.getDataEnvio());
             entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());
@@ -44,6 +52,7 @@ public class RevisoesDocService {
                 .map(doc -> new RevisoesDocDTO(
                         doc.getId(),
                         doc.getRevisao(),
+                        doc.getDocumentos().getId(),
                         doc.getResponsavel(),
                         doc.getDataEnvio(),
                         doc.getDataRespostaCiclo(),
@@ -61,6 +70,7 @@ public class RevisoesDocService {
         return new RevisoesDocDTO(
                 entity.getId(),
                 entity.getRevisao(),
+                entity.getDocumentos().getId(),
                 entity.getResponsavel(),
                 entity.getDataEnvio(),
                 entity.getDataRespostaCiclo(),
@@ -73,7 +83,10 @@ public class RevisoesDocService {
         RevisoesDoc entity = revisoesDocRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Revisão de documento não encontrada com ID: " + id));
 
+        Documentos docUp = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
+
         entity.setRevisao(dto.getRevisao());
+        entity.setDocumentos(docUp);
         entity.setResponsavel(dto.getResponsavel());
         entity.setDataEnvio(dto.getDataEnvio());
         entity.setDataRespostaCiclo(dto.getDataRespostaCiclo());

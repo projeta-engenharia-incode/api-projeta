@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AprovacoesCicloDTO {
+public class AprovacoesClientesDTO {
     private Long id;
     private Long documentoId;
     private Long cicloId;

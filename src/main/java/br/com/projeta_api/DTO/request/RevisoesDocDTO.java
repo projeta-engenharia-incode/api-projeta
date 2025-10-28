@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +13,7 @@ import java.util.List;
 public class RevisoesDocDTO {
     private Long id;
     private String revisao;
+    private Long documentoId;
     private String responsavel;
     private LocalDateTime dataEnvio;
     private LocalDateTime dataRespostaCiclo;

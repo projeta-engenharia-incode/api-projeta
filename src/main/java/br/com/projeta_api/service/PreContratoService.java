@@ -1,7 +1,9 @@
 package br.com.projeta_api.service;
 
 import br.com.projeta_api.dto.PreContratoDTO;
+import br.com.projeta_api.model.Chamados;
 import br.com.projeta_api.model.PreContrato;
+import br.com.projeta_api.repository.ChamadosRepository;
 import br.com.projeta_api.repository.PreContratoRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,11 @@ public class PreContratoService {
 
     private final PreContratoRepository preContratoRepository;
 
-    public PreContratoService(PreContratoRepository preContratoRepository) {
+    private final ChamadosRepository chamadosRepository;
+
+    public PreContratoService(PreContratoRepository preContratoRepository,  ChamadosRepository chamadosRepository) {
         this.preContratoRepository = preContratoRepository;
+        this.chamadosRepository = chamadosRepository;
     }
 
 
@@ -28,8 +33,10 @@ public class PreContratoService {
 
     public PreContratoDTO savePreContrato(PreContratoDTO dto) {
         try {
+
+            Chamados chamados = chamadosRepository.findById(dto.getChamadoId()).orElseThrow(() -> new RuntimeException("Nenhum chamado encontrado."));
             PreContrato entity = new PreContrato();
-            entity.setChamadoId(dto.getChamadoId());
+            entity.setChamado(chamados);
             entity.setTitulo(dto.getTitulo());
             entity.setDescricao(dto.getDescricao());
             entity.setStatus(dto.getStatus());
@@ -52,7 +59,9 @@ public class PreContratoService {
             PreContrato entity = preContratoRepository.findById(dto.getId())
                     .orElseThrow(() -> new RuntimeException("Pré-contrato não encontrado com o ID: " + dto.getId()));
 
-            entity.setChamadoId(dto.getChamadoId());
+            Chamados chamadosUp = chamadosRepository.findById(dto.getChamadoId()).orElseThrow(() -> new RuntimeException("Nenhum chamado encontrado."));
+
+            entity.setChamado(chamadosUp);
             entity.setTitulo(dto.getTitulo());
             entity.setDescricao(dto.getDescricao());
             entity.setStatus(dto.getStatus());

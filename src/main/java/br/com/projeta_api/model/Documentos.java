@@ -27,6 +27,10 @@ public class Documentos {
         @ManyToOne
         @JoinColumn(name = "ciclo_id")
         private Ciclo cicloId;
+
+        @OneToMany(mappedBy = "documentos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<RevisoesDoc> revisoesDocs = new ArrayList<>();
+
         @Column(name = "codigo_doc", nullable = false, length = 60)
         private String codigoDoc;
         @Column(name = "titulo_secundario", columnDefinition = "text")
@@ -90,6 +94,6 @@ public class Documentos {
         private List<PagamentosFornecedores> pagamentosFornecedores = new ArrayList<>();
 
         @OneToMany(mappedBy = "documentos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        private List<AprovacoesCiclo> aprovacoesCiclos = new ArrayList<>();
+        private List<AprovacoesClientes> aprovacoesClientes = new ArrayList<>();
 
 }

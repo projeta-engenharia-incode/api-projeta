@@ -1,6 +1,5 @@
 package br.com.projeta_api.model;
 
-import ch.qos.logback.core.joran.spi.NoAutoStart;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

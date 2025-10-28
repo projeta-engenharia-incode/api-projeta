@@ -22,6 +22,11 @@ public class RevisoesDoc {
     private Long id;
     @Column(name = "revisao",length = 5, nullable = false)
     private String revisao;
+
+    @ManyToOne
+    @JoinColumn(name = "documentos_id")
+    private Documentos documentos;
+
     @Column(name = "responsavel", length = 120, nullable = false)
     private String responsavel;
     @Column(name = "data_envio")

@@ -1,10 +1,10 @@
 package br.com.projeta_api.service;
 
-import br.com.projeta_api.DTO.request.AprovacoesCicloDTO;
-import br.com.projeta_api.model.AprovacoesCiclo;
+import br.com.projeta_api.DTO.request.AprovacoesClientesDTO;
+import br.com.projeta_api.model.AprovacoesClientes;
 import br.com.projeta_api.model.Ciclo;
 import br.com.projeta_api.model.Documentos;
-import br.com.projeta_api.repository.AprovacoesCicloRepository;
+import br.com.projeta_api.repository.AprovacoesClientesRepository;
 import br.com.projeta_api.repository.CicloRepository;
 import br.com.projeta_api.repository.DocumentosRepository;
 import org.springframework.stereotype.Service;
@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AprovacoesCicloService {
+public class AprovacoesClientesService {
 
-    private final AprovacoesCicloRepository aprovacoesCicloRepository;
+    private final AprovacoesClientesRepository aprovacoesClientesRepository;
 
     private final DocumentosRepository  documentosRepository;
 
     private final CicloRepository cicloRepository;
 
 
-    public AprovacoesCicloService(AprovacoesCicloRepository aprovacoesCicloRepository,  DocumentosRepository  documentosRepository, CicloRepository cicloRepository) {
-        this.aprovacoesCicloRepository = aprovacoesCicloRepository;
+    public AprovacoesClientesService(AprovacoesClientesRepository aprovacoesClientesRepository, DocumentosRepository  documentosRepository, CicloRepository cicloRepository) {
+        this.aprovacoesClientesRepository = aprovacoesClientesRepository;
         this.documentosRepository = documentosRepository;
         this.cicloRepository = cicloRepository;
     }
 
-    public AprovacoesCicloDTO saveAprovacaoCiclo(AprovacoesCicloDTO dto) {
+    public AprovacoesClientesDTO saveAprovacaoCiclo(AprovacoesClientesDTO dto) {
         try {
-            AprovacoesCiclo entity = new AprovacoesCiclo();
+            AprovacoesClientes entity = new AprovacoesClientes();
 
             Documentos doc = documentosRepository.findById(dto.getDocumentoId()).orElseThrow(() -> new RuntimeException("ERRO"));
             Ciclo ciclo =  cicloRepository.findById(dto.getCicloId()).orElseThrow(() -> new RuntimeException("ERRO"));
@@ -41,7 +41,7 @@ public class AprovacoesCicloService {
             entity.setStatus_aprovacao(dto.getStatusAprovacao());
             entity.setObservacoes(dto.getObservacoes());
 
-            AprovacoesCiclo savedEntity = aprovacoesCicloRepository.save(entity);
+            AprovacoesClientes savedEntity = aprovacoesClientesRepository.save(entity);
             dto.setId(savedEntity.getId());
             return dto;
         } catch (Exception e) {
@@ -49,13 +49,13 @@ public class AprovacoesCicloService {
         }
     }
 
-    public List<AprovacoesCicloDTO> listarAprovacoesCiclos() {
-        List<AprovacoesCiclo> entities = aprovacoesCicloRepository.findAll();
+    public List<AprovacoesClientesDTO> listarAprovacoesCiclos() {
+        List<AprovacoesClientes> entities = aprovacoesClientesRepository.findAll();
         if (entities.isEmpty()) {
             throw new RuntimeException("Nenhuma aprovação de ciclo encontrada.");
         }
         return entities.stream()
-                .map(ciclo -> new AprovacoesCicloDTO(
+                .map(ciclo -> new AprovacoesClientesDTO(
                         ciclo.getId(),
                         ciclo.getDocumentos().getId(),
                         ciclo.getCiclo().getId(),
@@ -68,11 +68,11 @@ public class AprovacoesCicloService {
                 .toList();
     }
 
-    public AprovacoesCicloDTO getAprovacaoCicloById(Long id) {
-        AprovacoesCiclo entity = aprovacoesCicloRepository.findById(id)
+    public AprovacoesClientesDTO getAprovacaoCicloById(Long id) {
+        AprovacoesClientes entity = aprovacoesClientesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id));
 
-        return new AprovacoesCicloDTO(
+        return new AprovacoesClientesDTO(
                 entity.getId(),
                 entity.getDocumentos().getId(),
                 entity.getCiclo().getId(),
@@ -84,8 +84,8 @@ public class AprovacoesCicloService {
         );
     }
 
-    public AprovacoesCicloDTO updateAprovacaoCiclo(Long id, AprovacoesCicloDTO dto) {
-        AprovacoesCiclo entity = aprovacoesCicloRepository.findById(id)
+    public AprovacoesClientesDTO updateAprovacaoCiclo(Long id, AprovacoesClientesDTO dto) {
+        AprovacoesClientes entity = aprovacoesClientesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id));
 
         Documentos docUp = documentosRepository.findById(entity.getDocumentos().getId()).orElseThrow(() -> new RuntimeException("ERRO"));
@@ -99,15 +99,15 @@ public class AprovacoesCicloService {
         entity.setStatus_aprovacao(dto.getStatusAprovacao());
         entity.setObservacoes(dto.getObservacoes());
 
-        AprovacoesCiclo updated = aprovacoesCicloRepository.save(entity);
+        AprovacoesClientes updated = aprovacoesClientesRepository.save(entity);
         dto.setId(updated.getId());
         return dto;
     }
 
     public void deleteAprovacaoCiclo(Long id) {
-        if (!aprovacoesCicloRepository.existsById(id)) {
+        if (!aprovacoesClientesRepository.existsById(id)) {
             throw new RuntimeException("Aprovação de ciclo não encontrada com ID: " + id);
         }
-        aprovacoesCicloRepository.deleteById(id);
+        aprovacoesClientesRepository.deleteById(id);
     }
 }

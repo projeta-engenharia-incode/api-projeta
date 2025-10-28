@@ -22,6 +22,9 @@ public class PrecosUnitarios {
     private Contrato contrato;
     @Column(name = "categoria", length = 120)
     private String categoria;
+
+    @Column(name = "codigo")
+    private String codigo;
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
     @Column(name = "formato", length = 20)
@@ -30,4 +33,16 @@ public class PrecosUnitarios {
     private Integer quantidade;
     @Column(name = "preco_unitario", precision = 10, scale = 2)
     private BigDecimal precoUnitario;
+
+    @Column(name = "percentual_reajuste", precision = 5, scale = 2)
+    private BigDecimal percentualReajuste; // Ex: 5.00 = 5%
+
+    @Column(name = "valor_reajuste", precision = 10, scale = 2)
+    private BigDecimal valorReajuste; // Valor calculado do acréscimo
+
+    @Column(name = "preco_ajustado", precision = 10, scale = 2)
+    private BigDecimal precoAjustado; // Novo preço com reajuste
+
+    @Column(name = "valor_total", precision = 10, scale = 2)
+    private BigDecimal valorTotal; //
 }
